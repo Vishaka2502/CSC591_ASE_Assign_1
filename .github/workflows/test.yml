@@ -4,16 +4,6 @@ name: Python application
 
 # Controls when the action will run.
 on:
-  workflow_dispatch:
-      # Inputs the workflow accepts.
-    inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'Manual'
-        # Input has to be provided for the workflow to run
-        required: true
   push:
     branches: [ "main" ]
   pull_request:
@@ -33,8 +23,8 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    # Runs a single command using the runners shell
+    - name: setup
+      run: python setup.py install
     - name: test
-      run: |
-        cd ./HW1/src; python script.py -g all
+      run: python HW1/src/script.py -g all
     - run: echo "🍏 This job's status is ${{ job.status }}."
