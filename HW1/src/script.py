@@ -1,33 +1,18 @@
-import os
-import utils
 import re
 import sys
 
+from HW1.src.utils import *
+from HW1.test.examples import test_the, test_sym
 
-options = {}
-helpString = """
-script.lua : an example script with help text and a test suite
-(c)2022, Tim Menzies <timm@ieee.org>, BSD-2 
-
-USAGE:   script.lua  [OPTIONS] [-g ACTION]
-
-OPTIONS:
-  -d  --dump  on crash, dump stack = false
-  -g  --go    start-up action      = data
-  -h  --help  show help            = false
-  -s  --seed  random number seed   = 937162211
-
-ACTIONS:
-"""
 
 def settings(pstr):
+    table = {}
     pattern = """\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)"""
     r = re.compile(pattern)
     matches = r.findall(pstr)
     for k, v in matches:
-        options[k] = utils.coerce(v)
-    
-    return options
+        table[k] = coerce(v)
+    return table
 
 
 def cli(options):
@@ -35,34 +20,36 @@ def cli(options):
         val = str(val)
         for n, x in enumerate(sys.argv):
             if x == "-" + key[0] or x == "--" + key:
-                val = val=="false" and "true" or val=="true" and "false" or n+1 <= len(sys.argv)
-        options[key] = utils.coerce(val)
+                val = val == "false" and "true" or val == "true" and "false" or sys.argv[n+1]
+        options[key] = coerce(val)
     return options
 
 
-def main(options, help, exampleFunctions):
-    saved, fails = {}, 0
-    for key, val in enumerate(cli(settings(helpString))):
+def main():
+    saved, fails, options = {}, 0, the
+    for key, val in cli(settings(help_string)).items():
         options[key] = val
         saved[key] = val
 
     if options["help"]:
-        print(helpString)    
+        print(help_string)
     else:
-        for what, fun in enumerate(exampleFunctions):
+        for what, fun in example_funcs.items():
             if options["go"] == "all" or what == options["go"]:
-                for k,v in enumerate(saved):
+                for k, v in saved.items():
                     options[k] = v
-                optseed = options["seed"]
-                if not exampleFunctions[what]():
+                global seed
+                seed = options["seed"]
+                if not example_funcs[what]():
                     fails += 1
-                    print("❌ fail:",what)
+                    print("❌ fail:", what)
                 else:
-                    print("✅ pass:",what)
+                    print("✅ pass:", what)
 
-    os.exit(fails)
+    sys.exit(fails)
 
 
 if __name__ == '__main__':
-    # main({}, helpString, )
-    print(cli(settings(helpString)))
+    example('the', 'show settings', test_the)
+    example('sym', 'check syms', test_sym)
+    main()
