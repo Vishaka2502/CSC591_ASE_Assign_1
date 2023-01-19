@@ -30,7 +30,7 @@ class NUM:
     
     #Return standard deviation using Welford's Aglorithm
     def div(self,x):
-        return ((self.m2 <0 or self.n < 2) and 0 or (self.m2/(self.n-1))**(0.5))
+#       return ((self.m2 <0 or self.n < 2) and 0 or (self.m2/(self.n-1))**(0.5))
         if self.m2 < 0 or self.n < 2:
             return 0
         else:
