@@ -1,4 +1,8 @@
 import os
+import utils
+import re
+import sys
+
 
 options = {}
 helpString = """
@@ -16,18 +20,29 @@ OPTIONS:
 ACTIONS:
 """
 
-def settings():
-    pass
+def settings(pstr):
+    pattern = """\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)"""
+    r = re.compile(pattern)
+    matches = r.findall(pstr)
+    for k, v in matches:
+        options[k] = utils.coerce(v)
+    
+    return options
+
 
 def cli(options):
-    for key, val in enumerate(options):
+    for key, val in options.items():
         val = str(val)
-        for n, x in enumerate()
+        for n, x in enumerate(sys.argv):
+            if x == "-" + key[0] or x == "--" + key:
+                val = val=="false" and "true" or val=="true" and "false" or n+1 <= len(sys.argv)
+        options[key] = utils.coerce(val)
+    return options
 
 
 def main(options, help, exampleFunctions):
     saved, fails = {}, 0
-    for key, val in enumerate():
+    for key, val in enumerate(cli(settings(helpString))):
         options[key] = val
         saved[key] = val
 
@@ -49,4 +64,5 @@ def main(options, help, exampleFunctions):
 
 
 if __name__ == '__main__':
-    main()
+    # main({}, helpString, )
+    print(cli(settings(helpString)))
