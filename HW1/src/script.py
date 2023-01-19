@@ -2,7 +2,7 @@ import re
 import sys
 
 from HW1.src.utils import *
-from HW1.test.examples import test_the, test_sym
+from HW1.test.examples import test_the, test_sym, test_rand, test_num
 
 
 def settings(pstr):
@@ -51,5 +51,7 @@ def main():
 
 if __name__ == '__main__':
     example('the', 'show settings', test_the)
+    example("rand", "generate, reset, regenerate same", test_rand)
     example('sym', 'check syms', test_sym)
+    example("num", "check nums", test_num)
     main()
