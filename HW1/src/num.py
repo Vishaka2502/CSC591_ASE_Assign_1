@@ -3,7 +3,7 @@ import math
 import os
 import utils
 
-#class NUM
+#class num
 class NUM:
     #constructor, initialize all variables
     def __init__(self):
