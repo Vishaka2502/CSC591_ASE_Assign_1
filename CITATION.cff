@@ -1,0 +1,17 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: LuaToPython
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Saksham Pandey
+    email: spandey5@ncsu.edu
+  - given-names: Vishaka Yadav
+    email: vyadav@ncsu.edu
+  - given-names: 'Shlok Naik '
+    email: snaik2@ncsu.edu
+license: MIT
