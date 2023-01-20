@@ -5,7 +5,7 @@ name: Test Report
 # Controls when the action will run.
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "gh-action" ]
   pull_request:
     branches: [ "main" ]
 
@@ -26,5 +26,5 @@ jobs:
     - name: setup
       run: python setup.py install
     - name: test
-      run: python HW1/src/script.py -g all
+      run: python HW1/src/script.py -g all >> $GIT_OUTPUT_DIR/script.out
     - run: echo "🍏 This job's status is ${{ job.status }}."
