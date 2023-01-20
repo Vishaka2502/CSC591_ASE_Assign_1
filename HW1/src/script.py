@@ -2,7 +2,7 @@ import re
 import sys
 
 from HW1.src.utils import *
-from HW1.test.examples import test_the, test_sym, test_rand, test_num
+from HW1.test.test_examples import test_the, test_sym, test_rand, test_num
 
 
 def settings(pstr):
