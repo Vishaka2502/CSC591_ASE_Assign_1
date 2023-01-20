@@ -1,6 +1,6 @@
-# This is a basic workflow that is manually triggered
+# This is a basic workflow to test HW1
 
-name: Python application
+name: Test Report
 
 # Controls when the action will run.
 on:
