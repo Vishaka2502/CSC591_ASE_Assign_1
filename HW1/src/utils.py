@@ -41,7 +41,7 @@ def kap(t, func):
     return u
 
 
-def tsort(t, func):
+def tsort(t):
     t = dict(sorted(t.items()))
     return t
 
@@ -49,8 +49,7 @@ def tsort(t, func):
 def o(t):
     if not isinstance(t, dict):
         return str(t)
-    eqStr = ""
-    eqStr += "{"
+    return tsort(t).__repr__()
 
 
 def oo(t):
