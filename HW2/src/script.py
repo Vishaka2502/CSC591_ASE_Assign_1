@@ -2,7 +2,7 @@ import re
 import sys
 
 from HW2.src.utils import *
-from HW2.test.test_examples import test_the, test_sym, test_rand, test_num
+from HW2.test.test_examples import test_the, test_sym, test_rand, test_num, test_csv
 
 
 def settings(pstr):
@@ -60,4 +60,5 @@ if __name__ == '__main__':
     example("rand", "generate, reset, regenerate same", test_rand)
     example('sym', 'check syms', test_sym)
     example("num", "check nums", test_num)
+    example("csv", "read from csv", test_csv)
     main()

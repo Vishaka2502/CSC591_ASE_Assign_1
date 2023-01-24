@@ -1,7 +1,9 @@
 from HW2.src.num import NUM
 from HW2.src.sym import SYM
 from HW2.src import utils
-from HW2.src.utils import rnd, oo, the, rand
+from HW2.src.utils import rnd, oo, the, rand, csv
+
+n = 0
 
 
 def test_the():
@@ -35,3 +37,12 @@ def test_num():
     for x in [1, 1, 1, 1, 2, 2, 3]:
         num.add(x)
     return 11 / 7 == num.mid() and 0.787 == rnd(num.div())
+
+
+def test_csv():
+    def func(t):
+        global n
+        n += len(t)
+
+    csv(the['file'], func)
+    return n == 8 * 399

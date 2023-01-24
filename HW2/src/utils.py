@@ -1,4 +1,5 @@
 import math
+import os
 import random
 from pathlib import Path
 
@@ -117,16 +118,16 @@ def csv(s_filename: str, func) -> None:
     """
     Calls `func` on rows (after coercing cell text)
     """
-    s_filename = Path(s_filename)
-    if not s_filename.exists():
-        print(f"File path {s_filename.absolute()} doesn't exist")
+    s_file = Path(os.path.abspath(s_filename))
+    if not s_file.exists():
+        print(f"File path {s_file.absolute()} doesn't exist")
         return None
-    if not s_filename.suffix == '.csv':
-        print(f"File {s_filename.absolute()} is not CSV type")
+    if not s_file.suffix == '.csv':
+        print(f"File {s_file.absolute()} is not CSV type")
         return None
 
     t = []
-    with open(s_filename.absolute(), 'r') as file:
+    with open(s_file.absolute(), 'r') as file:
         for _, line in enumerate(file):
             row = list(map(coerce, line.strip().split(',')))
             t.append(row)
