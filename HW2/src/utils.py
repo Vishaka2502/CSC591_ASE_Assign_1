@@ -1,9 +1,8 @@
 import math
-import os
 import random
 from pathlib import Path
 
-from HW2 import settings
+import settings
 
 the = settings.THE
 seed = settings.SEED
@@ -118,7 +117,7 @@ def csv(s_filename: str, func) -> None:
     """
     Calls `func` on rows (after coercing cell text)
     """
-    s_file = Path(os.path.abspath(s_filename))
+    s_file = Path(s_filename)
     if not s_file.exists():
         print(f"File path {s_file.absolute()} doesn't exist")
         return None
