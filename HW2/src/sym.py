@@ -3,7 +3,9 @@ import math
 
 class SYM:
     # constructor, initialize all variables
-    def __init__(self):
+    def __init__(self, at=None, txt=None):
+        self.at = at or 0       # column position
+        self.txt = txt or ""    # column name
         self.n = 0
         self.has = dict()
         self.most = 0
@@ -31,3 +33,7 @@ class SYM:
         for _, n in self.has.items():
             e = e + fun(n / self.n)
         return -e
+
+    # Return number unchanged (SYMs do not get rounded)
+    def rnd(self, x):
+        return x

@@ -1,7 +1,7 @@
-from HW1.src.num import NUM
-from HW1.src.sym import SYM
-from HW1.src import utils
-from HW1.src.utils import rnd, oo, the, rand
+from HW2.src.num import NUM
+from HW2.src.sym import SYM
+from HW2.src import utils
+from HW2.src.utils import rnd, oo, the, rand
 
 
 def test_the():

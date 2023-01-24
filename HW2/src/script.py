@@ -1,8 +1,8 @@
 import re
 import sys
 
-from HW1.src.utils import *
-from HW1.test.test_examples import test_the, test_sym, test_rand, test_num
+from HW2.src.utils import *
+from HW2.test.test_examples import test_the, test_sym, test_rand, test_num
 
 
 def settings(pstr):
@@ -20,7 +20,13 @@ def cli(options):
         val = str(val)
         for n, x in enumerate(sys.argv):
             if x == "-" + key[0] or x == "--" + key:
-                val = val == "false" and "true" or val == "true" and "false" or sys.argv[n+1]
+                if val.lower() == 'false':
+                    val = 'true'
+                elif val.lower() == 'true':
+                    val = 'false'
+                else:
+                    val = sys.argv[n+1]
+                # val = val == "false" and "true" or val == "true" and "false" or sys.argv[n+1]
         options[key] = coerce(val)
     return options
 
