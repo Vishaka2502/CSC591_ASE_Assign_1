@@ -32,30 +32,6 @@ def rnd(n: float, n_places=None) -> float:
     return math.floor(n * mult + 0.5) / mult
 
 
-def fmap(t: list, func):
-    """
-    Maps `func`(v) over list `t` (skip nil results)
-    """
-    u = {}
-    for k, v in enumerate(t):
-        v, k = func(v)
-        # here unlike `#u` in lua that gives the index of last entry, +1 is not required with len(u)
-        u[k or len(u)] = v
-    return u
-
-
-def kap(t: list, func):
-    """
-    Maps `func`(k,v) over list `t` (skip nil results)
-    """
-    u = {}
-    for k, v in enumerate(t):
-        v, k = func(k, v)
-        # here unlike `#u` in lua that gives the index of last entry, +1 is not required with len(u)
-        u[k or len(u)] = v
-    return u
-
-
 def keys(t: dict) -> list:
     """
     Returns sorted order of the keys of dict `t`
