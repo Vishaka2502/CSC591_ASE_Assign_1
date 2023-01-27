@@ -18,8 +18,13 @@ python setup.py install
 ```
 
 ### Run tests
+- Test HW1
 ```sh
 python HW1/src/script.py -g all
+```
+- Test HW2
+```sh
+python HW2/src/script.py -g all --file HW2/etc/data/auto93.csv
 ```
 
 ### Author
