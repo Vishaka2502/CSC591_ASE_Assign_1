@@ -1,6 +1,7 @@
+from HW2.src import utils
+from HW2.src.data import DATA
 from HW2.src.num import NUM
 from HW2.src.sym import SYM
-from HW2.src import utils
 from HW2.src.utils import rnd, oo, the, rand, csv
 
 n = 0
@@ -46,3 +47,19 @@ def test_csv():
 
     csv(the['file'], func)
     return n == 8 * 399
+
+
+def test_data():
+    data = DATA(the['file'])
+    return len(data.rows) == 398 and \
+           data.cols.y[0].w == -1 and \
+           data.cols.x[1].at == 1 and \
+           len(data.cols.x) == 4
+
+
+def test_stats():
+    data = DATA(the['file'])
+    for k, cols in {'y': data.cols.y, 'x': data.cols.x}.items():
+        print(k, 'mid', data.stats('mid', cols, 2))
+        print('', 'div', data.stats('div', cols, 2))
+    return True
