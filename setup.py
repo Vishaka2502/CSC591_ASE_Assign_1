@@ -7,5 +7,5 @@ setup(
             'HW2', 'HW2.src', 'HW2.test'],
   license='LICENSE.md',
   description='Sample project with HELP text and Test Suite',
-  long_description=open('README.md').read(),
+  long_description=open('README.md', encoding="utf8").read(),
 )
