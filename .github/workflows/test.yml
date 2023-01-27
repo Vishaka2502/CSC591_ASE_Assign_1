@@ -12,7 +12,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "greet"
-  test:
+  Build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -26,7 +26,9 @@ jobs:
     - name: Setup
       run: python setup.py install
     - name: Test HW1
+      id: test_hw1
       run: python HW1/src/script.py -g all
     - name: Test HW2
-      run: python HW2/src/script.py -g all -f ./HW2/etc/data/auto93.csv
+      id: test_hw2
+      run: python HW2/src/script.py -g all -f ./HW2/etc/data/auto93.csv\
     - run: echo "🍏 This job's status is ${{ job.status }}."
