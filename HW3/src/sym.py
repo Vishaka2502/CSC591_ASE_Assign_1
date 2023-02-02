@@ -5,7 +5,7 @@ from typing import Union
 class SYM:
     # constructor, initialize all variables
     def __init__(self, at: int = 0, txt: str = ""):
-        self.at = at    # column position
+        self.at = at  # column position
         self.txt = txt  # column name
         self.n = 0
         self.has = dict()
@@ -35,6 +35,7 @@ class SYM:
         Get the entropy
         :return: float: entropy
         """
+
         def fun(p):
             return p * math.log(p, 2)
 
@@ -51,3 +52,18 @@ class SYM:
         :return: Union[float, str]: return the parameter unchanged
         """
         return x
+
+    @staticmethod
+    def dist(s1: any, s2: any) -> int:
+        """
+        Returns distance between the two values
+        :param s1:
+        :param s2:
+        :return: integer: 0 or 1
+        """
+        if s1 == "?" and s2 == "?":
+            return 1
+        elif s1 == s2:
+            return 0
+        else:
+            return 1

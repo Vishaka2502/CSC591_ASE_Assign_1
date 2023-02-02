@@ -25,7 +25,7 @@ def cli(options):
                 elif val.lower() == 'true':
                     val = 'false'
                 else:
-                    val = sys.argv[n+1]
+                    val = sys.argv[n + 1]
                 # val = val == "false" and "true" or val == "true" and "false" or sys.argv[n+1]
         options[key] = coerce(val)
     return options
@@ -46,7 +46,7 @@ def main():
                     options[k] = v
                 global seed
                 seed = options["seed"]
-                if not example_funcs[what]():
+                if example_funcs[what]() == False:
                     fails += 1
                     print("❌ fail:", what)
                 else:
@@ -57,10 +57,12 @@ def main():
 
 if __name__ == '__main__':
     example('the', 'show settings', test_the)
-    example("rand", "generate, reset, regenerate same", test_rand)
     example('sym', 'check syms', test_sym)
     example("num", "check nums", test_num)
-    example("csv", "read from csv", test_csv)
     example('data', 'read DATA csv', test_data)
-    example('stats', 'stats from DATA', test_stats)
+    example("clone", "duplicate structure", test_clone)
+    example("around", "sorting nearest neighbors", test_around)
+    example("half", "1-level bi-clustering", test_half)
+    example("cluster", "N-level bi-clustering", test_cluster)
+    example("optimize", "semi-supervised optimization", test_optimize)
     main()
