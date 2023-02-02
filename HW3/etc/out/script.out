@@ -1,0 +1,12 @@
+{'dump': False, 'file': '../etc/data/auto93.csv', 'go': 'all', 'help': False, 'seed': 937162211}
+✅ pass: the
+✅ pass: rand
+✅ pass: sym
+✅ pass: num
+✅ pass: csv
+✅ pass: data
+y mid <map object at 0x100fd0a30>
+ div <map object at 0x100fd0a30>
+x mid <map object at 0x100fd0a30>
+ div <map object at 0x100fd0a30>
+✅ pass: stats
