@@ -1,12 +1,11 @@
 import math
 from typing import Union, List
 
-from HW4.src import utils
 from HW4.src.cols import COLS
 from HW4.src.num import NUM
 from HW4.src.row import ROW
 from HW4.src.sym import SYM
-from HW4.src.utils import csv, the, cosine, many, kap
+from HW4.src.utils import csv, the, cosine, kap
 
 
 class DATA:
@@ -101,6 +100,17 @@ class DATA:
 
         return sorted(list(map(func, rows or self.rows)), key=lambda x: x['dist'])
 
+    def furthest(self, row1: ROW, rows: List[ROW] = None, cols: List[Union[NUM, SYM]] = None) -> dict:
+        """
+        Sort other `rows` by distance to `row1` and get the farthest row
+        :param row1: ROW
+        :param rows: List[ROW]
+        :param cols: List[Union[NUM, SYM]]
+        :return: Farthest row from `row1`
+        """
+        t = self.around(row1, rows, cols)
+        return t[len(t) - 1]
+
     def half(self, rows: List[ROW] = None, cols: List[Union[NUM, SYM]] = None,
              above: ROW = None) -> (list, list, ROW, ROW, ROW, float):
         """
@@ -111,17 +121,19 @@ class DATA:
             return self.dist(row1, row2, cols)
 
         def project(row):
-            return {'row': row, 'dist': cosine(dist(row, A), dist(row, B), c)}
+            x, y = cosine(dist(row, A), dist(row, B), c)
+            row.x = row.x or x
+            row.y = row.y or y
+            return {"row": row, "x": x, "y": y}
 
         rows = (rows if rows else self.rows)
-        some = many(rows, the['Sample'])
-        A = above if above else utils.any(some)
-        B = self.around(A, some)[int(the['Far'] * len(rows)) // 1]['row']
+        A = above or any(rows)
+        B = self.furthest(A, rows)['row']
         c = dist(A, B)
         left = []
         right = []
 
-        for n, tmp in enumerate(sorted(list(map(project, rows)), key=lambda k: k['dist'])):
+        for n, tmp in enumerate(sorted(list(map(project, rows)), key=lambda k: k['x'])):
             if n < len(rows) // 2:
                 left.append(tmp['row'])
                 mid = tmp['row']
@@ -130,7 +142,7 @@ class DATA:
 
         return left, right, A, B, mid, c
 
-    def cluster(self, rows: List[ROW] = None, minimum: int = None, cols: List[Union[NUM, SYM]] = None,
+    def cluster(self, rows: List[ROW] = None, cols: List[Union[NUM, SYM]] = None,
                 above: ROW = None) -> dict:
         """
         Get `rows`, recursively halved
@@ -142,12 +154,11 @@ class DATA:
         """
         rows = rows or self.rows
         cols = cols or self.cols.x
-        minimum = minimum if minimum else len(rows) ** the['min']
         node = {'data': self.clone(rows)}
-        if len(rows) >= 2 * minimum:
-            left, right, node['A'], node['B'], node['mid'], c = self.half(rows, cols, above)
-            node['left'] = self.cluster(left, minimum, cols, node['A'])
-            node['right'] = self.cluster(right, minimum, cols, node['B'])
+        if len(rows) >= 2:
+            left, right, node['A'], node['B'], node['mid'], node['c'] = self.half(rows, cols, above)
+            node['left'] = self.cluster(left, cols, node['A'])
+            node['right'] = self.cluster(right, cols, node['B'])
         return node
 
     def sway(self, rows: List[ROW] = None, minimum: int = None, cols: List[Union[NUM, SYM]] = None,
