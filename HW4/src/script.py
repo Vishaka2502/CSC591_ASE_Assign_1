@@ -1,7 +1,5 @@
-import re
 import sys
 
-from HW4.src.utils import *
 from HW4.test.test_examples import *
 
 
@@ -57,12 +55,13 @@ def main():
 
 if __name__ == '__main__':
     example('the', 'show settings', test_the)
+    example('copy', 'check copy', test_copy)
     example('sym', 'check syms', test_sym)
     example("num", "check nums", test_num)
-    example('data', 'read DATA csv', test_data)
-    example("clone", "duplicate structure", test_clone)
-    example("around", "sorting nearest neighbors", test_around)
-    example("half", "1-level bi-clustering", test_half)
-    example("cluster", "N-level bi-clustering", test_cluster)
-    example("optimize", "semi-supervised optimization", test_optimize)
+    example('repcols', 'checking repcols', test_rep_cols)
+    example('synonyms', 'checking repcols cluster', test_synonyms)
+    example('reprows', 'checking reprows', test_rep_rows)
+    example('prototypes', 'checking reprows cluster', test_prototypes)
+    example('position', 'where\'s wally', test_position)
+    example('every', 'the whole enchilada', test_every)
     main()

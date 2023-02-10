@@ -1,6 +1,10 @@
+import json
 import math
 import random
+import re
+from copy import deepcopy
 from pathlib import Path
+from typing import Union, List
 
 import settings
 
@@ -92,6 +96,11 @@ def many(t: list, n: int) -> list:
     return u
 
 
+def copy(t: Union[dict, list]) -> Union[dict, list]:
+    """Returns deep copy"""
+    return deepcopy(t)
+
+
 # String Operations
 def o(t) -> str:
     """
@@ -146,7 +155,91 @@ def csv(s_filename: str, func) -> None:
 
 
 # Miscellaneous Operations
-def show(node, what: str, cols: list, n_places: int, lvl: int = 0) -> None:
+def dofile(file: str) -> dict:
+    """
+    Loads the file
+    :param file: file name to be read
+    :return:
+    """
+    file = open(file, "r", encoding="utf-8")
+    text = (
+        re.findall(r'(?<=return )[^.]*', file.read())[0]
+        .replace('{', '[')
+        .replace('}', ']')
+        .replace('=', ':')
+        .replace('[\n', '{\n')
+        .replace(' ]', ' }')
+        .replace('\'', '"')
+        .replace('_', '"_"')
+    )
+    file.close()
+    print("----", text)
+    return json.loads(re.sub(r"(\w+):", r'"\1":', text)[:-2] + "}")
+
+
+def rep_cols(cols, data: 'DATA') -> 'DATA':
+    cols = copy(cols)
+    for col in cols:
+        col[len(col) - 1] = col[0] + ":" + col[len(col) - 1]
+        for j in range(1, len(col)):
+            col[j - 1] = col[j]
+        col.pop()
+    first_col = ['Num' + str(k) for k in range(len(cols[0]))]
+    cols.insert(0, first_col)
+    cols[0][len(cols) -1] = 'thingX'
+    print("****", cols)
+    return data(cols)
+
+
+def rep_rows(t, data: 'DATA', rows: List['ROW']) -> 'DATA':
+    rows = copy(rows)
+    for j, s in enumerate(rows[-1]):
+        rows[0][j] = rows[0][j] + ":" + s
+    rows.pop()
+    for n, row in enumerate(rows):
+        if n == 0:
+            row.append('thingX')
+        else:
+            u = t['rows'][-n]
+            row.append(u[-1])
+    return data(rows)
+
+
+def rep_place(data: 'DATA') -> None:
+    n = 20
+    g = [[' ' for _ in range(n + 1)] for _ in range(n + 1)]
+    maxy = 0
+    print('')
+    for r, row in enumerate(data.rows):
+        c = chr(64 + r)
+        print(c, row.cells[-1])
+        x, y = row.x * n // 1, row.y * n // 1
+        maxy = int(max(maxy, y + 1))
+        g[y + 1][x + 1] = c
+    print('')
+    for y in range(1, maxy + 1):
+        print(' '.join(g[y]))
+
+
+def transpose(t):
+    u = []
+    for i in range(len(t[1])):
+        u.append([])
+        for j in range(len(t)):
+            u[i].append(t[j][i])
+    return u
+
+
+def rep_grid(source_file: str, data: 'DATA') -> None:
+    t = dofile(source_file)
+    rows = rep_rows(t, data, transpose(t['cols']))
+    cols = rep_cols(t['cols'], data)
+    show(rows.cluster(), "mid", rows.cols.all, 1)
+    show(cols.cluster(), "mid", cols.cols.all, 1)
+    rep_place(rows)
+
+
+def show(node, what: str = 'mid', cols: List[Union['Num', 'Sym']] = None, n_places: int = 1, lvl: int = 0) -> None:
     """
     Prints the tree
     :param node: Node of tree
@@ -172,15 +265,3 @@ def example(key: str, text: str, fun) -> None:
     example_funcs[key] = fun
     global help_string
     help_string = f"""{help_string} -g {key} \t {text} \n"""
-
-
-def kap(t: list, func):
-    """
-    Maps `func`(k,v) over list `t` (skip nil results)
-    """
-    u = {}
-    for k, v in enumerate(t):
-        v, k = func(k, v)
-        # here unlike `#u` in lua that gives the index of last entry, +1 is not required with len(u)
-        u[k or len(u)] = v
-    return u

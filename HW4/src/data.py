@@ -16,7 +16,8 @@ class DATA:
         if isinstance(src, str):
             csv(src, self.add)
         else:
-            self.add(src or [])
+            for row in src:
+                self.add(row)
 
     def add(self, t: Union[ROW, list]) -> None:
         """

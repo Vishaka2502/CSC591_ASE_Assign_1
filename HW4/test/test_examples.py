@@ -2,7 +2,7 @@ from HW4.src import utils
 from HW4.src.data import DATA
 from HW4.src.num import NUM
 from HW4.src.sym import SYM
-from HW4.src.utils import rnd, oo, the, rand, csv, show
+from HW4.src.utils import *
 
 n = 0
 
@@ -10,6 +10,13 @@ n = 0
 def test_the():
     r = oo(the)
     return r
+
+
+def test_copy():
+    t1 = {'a': 1, 'b': {'c': 2, 'd': [3]}}
+    t2 = copy(t1)
+    t2['b']['d'][0] = 10000
+    print('b4', t1, '\nafter', t2)
 
 
 def test_rand():
@@ -99,3 +106,40 @@ def test_cluster():
 def test_optimize():
     data = DATA(the['file'])
     show(data.sway(), 'mid', data.cols.y, 1)
+
+
+def test_rep_cols():
+    print("\n\n-----", dofile(the['file'])['cols'])
+    t = rep_cols(dofile(the['file'])['cols'], DATA)
+    print("\n\n-----", t)
+    _ = list(map(oo, t.cols.all))
+    _ = list(map(oo, t.rows))
+
+
+def test_synonyms():
+    data = DATA(the['file'])
+    show(rep_cols(dofile(the['file'])['cols'], DATA).cluster(), "mid", data.cols.all, 1)
+
+
+def test_rep_rows():
+    t = dofile(the['file'])
+    rows = rep_rows(t, DATA, transpose(t['cols']))
+    _ = list(map(oo, rows.cols.all))
+    _ = list(map(oo, rows.rows))
+
+
+def test_prototypes():
+    t = dofile(the['file'])
+    rows = rep_rows(t, DATA, transpose(t['cols']))
+    show(rows.cluster(), "mid", rows.cols.all, 1)
+
+
+def test_position():
+    t = dofile(the['file'])
+    rows = rep_rows(t, DATA, transpose(t['cols']))
+    rows.cluster()
+    rep_place(rows)
+
+
+def test_every():
+    rep_grid(the['file'], DATA)
