@@ -34,4 +34,7 @@ jobs:
     - name: Test HW3
       id: test_hw3
       run: python HW3/src/script.py -g all -f ./HW3/etc/data/auto93.csv
+    - name: Test HW4
+      id: test_hw4
+      run: python HW4/src/script.py -g all -f ./HW4/etc/data/repgrid1.csv
     - run: echo "🍏 This job's status is ${{ job.status }}."

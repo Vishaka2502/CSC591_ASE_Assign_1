@@ -18,5 +18,4 @@ rows={                      { _, _, _, _, _, _, _, _, _, 'BroadbandNetworks'},
                             { _, _, _,  'VisualProgramming'},
                             { _, _,  'MultimediaAndHypermedia'},
                             { _, 'VirtualReality'},
-                            {'ElectronicPublishing'}}
-}
+                            {'ElectronicPublishing'}} }

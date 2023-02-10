@@ -1,6 +1,7 @@
 import math
 from typing import Union, List
 
+from HW4.src import utils
 from HW4.src.cols import COLS
 from HW4.src.num import NUM
 from HW4.src.row import ROW
@@ -38,7 +39,7 @@ class DATA:
         :param init: Initial data for the clone
         :return:
         """
-        data = DATA(list(self.cols.names))
+        data = DATA([self.cols.names])
         list(map(data.add, init or []))
         return data
 
@@ -123,12 +124,12 @@ class DATA:
 
         def project(row):
             x, y = cosine(dist(row, A), dist(row, B), c)
-            row.x = row.x or x
-            row.y = row.y or y
+            row.x = row.x if hasattr(row, 'x') else x
+            row.y = row.y if hasattr(row, 'y') else y
             return {"row": row, "x": x, "y": y}
 
-        rows = (rows if rows else self.rows)
-        A = above or any(rows)
+        rows = rows if rows else self.rows
+        A = above or utils.any(rows)
         B = self.furthest(A, rows)['row']
         c = dist(A, B)
         left = []
@@ -148,7 +149,6 @@ class DATA:
         """
         Get `rows`, recursively halved
         :param rows:
-        :param minimum:
         :param cols:
         :param above:
         :return:

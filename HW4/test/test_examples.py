@@ -8,7 +8,7 @@ n = 0
 
 
 def test_the():
-    r = oo(the)
+    r = str(the)
     return r
 
 
@@ -109,16 +109,14 @@ def test_optimize():
 
 
 def test_rep_cols():
-    print("\n\n-----", dofile(the['file'])['cols'])
     t = rep_cols(dofile(the['file'])['cols'], DATA)
-    print("\n\n-----", t)
     _ = list(map(oo, t.cols.all))
     _ = list(map(oo, t.rows))
 
 
 def test_synonyms():
     data = DATA(the['file'])
-    show(rep_cols(dofile(the['file'])['cols'], DATA).cluster(), "mid", data.cols.all, 1)
+    show(rep_cols(dofile(the['file'])['cols'], DATA).cluster())
 
 
 def test_rep_rows():
@@ -131,7 +129,7 @@ def test_rep_rows():
 def test_prototypes():
     t = dofile(the['file'])
     rows = rep_rows(t, DATA, transpose(t['cols']))
-    show(rows.cluster(), "mid", rows.cols.all, 1)
+    show(rows.cluster())
 
 
 def test_position():

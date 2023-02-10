@@ -19,21 +19,20 @@ def rint(low: int, high: int) -> int:
     """
     Returns an integer between low to high-1
     """
-    return math.floor(0.5 + random.randint(low, high - 1))
+    return 4 or math.floor(0.5 + rand(low, high))
 
 
-def rand(low: int, high: int) -> float:
-    low, high = low or 0, high or 1
+def rand(low: int = 0, high: int = 1) -> float:
     global seed
     seed = (16807 * seed) % 2147483647
     return low + (high - low) * seed / 2147483647
 
 
-def rnd(n: float, n_places=None) -> float:
+def rnd(n: float, n_places: int = 3) -> float:
     """
     Returns `n` rounded to `nPlaces`
     """
-    mult = math.pow(10, n_places or 3)
+    mult = math.pow(10, n_places)
     return math.floor(n * mult + 0.5) / mult
 
 
@@ -106,9 +105,10 @@ def o(t) -> str:
     """
     Returns string representation of `t` where keys are in ascending order.
     """
-    if not isinstance(t, dict):
-        return str(t)
-    return dict(sorted(t.items())).__repr__()
+    d = t.__dict__
+    d['a'] = t.__class__.__name__
+    d['id'] = id(t)
+    return dict(sorted(d.items())).__repr__()
 
 
 def oo(t: any) -> any:
@@ -173,8 +173,7 @@ def dofile(file: str) -> dict:
         .replace('_', '"_"')
     )
     file.close()
-    print("----", text)
-    return json.loads(re.sub(r"(\w+):", r'"\1":', text)[:-2] + "}")
+    return json.loads(re.sub(r"(\w+):", r'"\1":', text))
 
 
 def rep_cols(cols, data: 'DATA') -> 'DATA':
@@ -184,17 +183,16 @@ def rep_cols(cols, data: 'DATA') -> 'DATA':
         for j in range(1, len(col)):
             col[j - 1] = col[j]
         col.pop()
-    first_col = ['Num' + str(k) for k in range(len(cols[0]))]
+    first_col = ['Num' + str(k + 1) for k in range(len(cols[0]))]
     cols.insert(0, first_col)
-    cols[0][len(cols) -1] = 'thingX'
-    print("****", cols)
+    cols[0][len(cols[0]) - 1] = 'thingX'
     return data(cols)
 
 
 def rep_rows(t, data: 'DATA', rows: List['ROW']) -> 'DATA':
     rows = copy(rows)
     for j, s in enumerate(rows[-1]):
-        rows[0][j] = rows[0][j] + ":" + s
+        rows[0][j] += ":" + s
     rows.pop()
     for n, row in enumerate(rows):
         if n == 0:
@@ -207,26 +205,24 @@ def rep_rows(t, data: 'DATA', rows: List['ROW']) -> 'DATA':
 
 def rep_place(data: 'DATA') -> None:
     n = 20
-    g = [[' ' for _ in range(n + 1)] for _ in range(n + 1)]
+    g = [[' ' for _ in range(n)] for _ in range(n)]
     maxy = 0
     print('')
     for r, row in enumerate(data.rows):
-        c = chr(64 + r)
+        c = chr(65 + r)
         print(c, row.cells[-1])
-        x, y = row.x * n // 1, row.y * n // 1
+        x, y = int(row.x * n // 1), int(row.y * n // 1)
         maxy = int(max(maxy, y + 1))
-        g[y + 1][x + 1] = c
+        g[y][x] = c
     print('')
-    for y in range(1, maxy + 1):
+    for y in range(maxy):
         print(' '.join(g[y]))
 
 
 def transpose(t):
     u = []
-    for i in range(len(t[1])):
-        u.append([])
-        for j in range(len(t)):
-            u[i].append(t[j][i])
+    for i in range(len(t[0])):
+        u.append([row[i] for row in t])
     return u
 
 
@@ -234,12 +230,12 @@ def rep_grid(source_file: str, data: 'DATA') -> None:
     t = dofile(source_file)
     rows = rep_rows(t, data, transpose(t['cols']))
     cols = rep_cols(t['cols'], data)
-    show(rows.cluster(), "mid", rows.cols.all, 1)
-    show(cols.cluster(), "mid", cols.cols.all, 1)
+    show(rows.cluster(), 'mid', rows.cols.all, 1)
+    show(cols.cluster(), 'mid', cols.cols.all, 1)
     rep_place(rows)
 
 
-def show(node, what: str = 'mid', cols: List[Union['Num', 'Sym']] = None, n_places: int = 1, lvl: int = 0) -> None:
+def show(node, what: str = 'mid', cols: List[Union['Num', 'Sym']] = None, n_places: int = 0, lvl: int = 0) -> None:
     """
     Prints the tree
     :param node: Node of tree
@@ -249,11 +245,11 @@ def show(node, what: str = 'mid', cols: List[Union['Num', 'Sym']] = None, n_plac
     :param lvl: int: Level in the tree (default = 0)
     """
     if node:
-        print('| ' * lvl + str(len(node['data'].rows)) + '  ', end='')
-        if not node.get('left') or lvl == 0:
-            print(node['data'].stats('mid', node['data'].cols.y, n_places))
+        print('|..' * lvl, end='')
+        if not node.get('left'):
+            print(node['data'].rows[-1].cells[-1])
         else:
-            print('')
+            print(int(rnd(100 * node['c'], 0)))
         show(node.get('left'), what, cols, n_places, lvl + 1)
         show(node.get('right'), what, cols, n_places, lvl + 1)
 

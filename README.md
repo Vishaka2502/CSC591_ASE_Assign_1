@@ -30,6 +30,10 @@ python HW2/src/script.py -g all --file HW2/etc/data/auto93.csv
 ```sh
 python HW3/src/script.py -g all --file HW3/etc/data/auto93.csv
 ```
+- Test HW3
+```sh
+python HW4/src/script.py -g all --file HW4/etc/data/repgrid1.csv
+```
 
 ### Author
 👤 **spandey5, snaik2, vyadav**
