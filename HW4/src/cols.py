@@ -18,7 +18,7 @@ class COLS:
             if not col_name[-1] == "X":
                 if "!" in col_name:
                     self.klass = col
-                if "+" in col_name or "-" in col_name or "!" in col_name:
+                if "+" in col_name or "!" in col_name:
                     self.y.append(col)
                 else:
                     self.x.append(col)
