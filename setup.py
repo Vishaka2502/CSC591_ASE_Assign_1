@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
   name='ASE_Assignments',
-  version='3.0.0',
+  version='4.0.0',
   packages=['HW1', 'HW1.src', 'HW1.test',
             'HW2', 'HW2.src', 'HW2.test',
             'HW3', 'HW3.src', 'HW3.test',
