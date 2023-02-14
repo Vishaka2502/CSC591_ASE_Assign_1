@@ -1,0 +1,144 @@
+✅ pass: the
+b4 {'a': 1, 'b': {'c': 2, 'd': [3]}} 
+after {'a': 1, 'b': {'c': 2, 'd': [10000]}}
+✅ pass: copy
+✅ pass: sym
+✅ pass: num
+{'a': 'NUM', 'at': 0, 'hi': 4, 'id': 4301918848, 'lo': 2, 'm2': 2.0, 'mu': 3.0, 'n': 6, 'txt': 'Num1', 'w': 1}
+{'a': 'NUM', 'at': 1, 'hi': 4, 'id': 4303414176, 'lo': 3, 'm2': 1.333333333333333, 'mu': 3.333333333333333, 'n': 6, 'txt': 'Num2', 'w': 1}
+{'a': 'NUM', 'at': 2, 'hi': 3, 'id': 4303413408, 'lo': 1, 'm2': 2.833333333333333, 'mu': 2.166666666666667, 'n': 6, 'txt': 'Num3', 'w': 1}
+{'a': 'NUM', 'at': 3, 'hi': 3, 'id': 4303415712, 'lo': 2, 'm2': 1.333333333333333, 'mu': 2.666666666666667, 'n': 6, 'txt': 'Num4', 'w': 1}
+{'a': 'NUM', 'at': 4, 'hi': 5, 'id': 4303413936, 'lo': 3, 'm2': 1.9999999999999996, 'mu': 4.0, 'n': 6, 'txt': 'Num5', 'w': 1}
+{'a': 'NUM', 'at': 5, 'hi': 4, 'id': 4303417104, 'lo': 3, 'm2': 1.5, 'mu': 3.5, 'n': 6, 'txt': 'Num6', 'w': 1}
+{'a': 'NUM', 'at': 6, 'hi': 5, 'id': 4303413456, 'lo': 4, 'm2': 1.333333333333334, 'mu': 4.666666666666666, 'n': 6, 'txt': 'Num7', 'w': 1}
+{'a': 'NUM', 'at': 7, 'hi': 3, 'id': 4303413312, 'lo': 1, 'm2': 2.8333333333333335, 'mu': 1.8333333333333335, 'n': 6, 'txt': 'Num8', 'w': 1}
+{'a': 'NUM', 'at': 8, 'hi': 4, 'id': 4303414800, 'lo': 2, 'm2': 4.0, 'mu': 3.0, 'n': 6, 'txt': 'Num9', 'w': 1}
+{'a': 'NUM', 'at': 9, 'hi': 5, 'id': 4303415184, 'lo': 2, 'm2': 7.499999999999999, 'mu': 3.5, 'n': 6, 'txt': 'Num10', 'w': 1}
+{'a': 'SYM', 'at': 10, 'has': {}, 'id': 4303414512, 'mode': None, 'most': 0, 'n': 0, 'txt': 'thingX'}
+{'a': 'ROW', 'cells': [3, 4, 3, 3, 4, 3, 4, 1, 2, 2, 'SmallScreen:LargeScreen'], 'id': 4301918368}
+{'a': 'ROW', 'cells': [2, 3, 2, 3, 5, 4, 5, 1, 3, 3, 'LowResolution:HighResolution'], 'id': 4301918752}
+{'a': 'ROW', 'cells': [3, 3, 1, 2, 4, 3, 4, 3, 4, 5, 'Affordable:Expensive'], 'id': 4303415280}
+{'a': 'ROW', 'cells': [4, 4, 3, 3, 3, 4, 5, 2, 2, 3, 'LowRAM:HighRAM'], 'id': 4303414896}
+{'a': 'ROW', 'cells': [3, 3, 2, 2, 4, 4, 5, 2, 4, 5, 'OldMicroChip:NewMicroChip'], 'id': 4303413360}
+{'a': 'ROW', 'cells': [3, 3, 2, 3, 4, 3, 5, 2, 3, 3, 'LowBatteryLife:HighBatteryLife'], 'id': 4303416960}
+✅ pass: repcols
+81
+|..50
+|..|..OldMicroChip:NewMicroChip
+|..|..74
+|..|..|..Affordable:Expensive
+|..|..|..LowResolution:HighResolution
+|..53
+|..|..SmallScreen:LargeScreen
+|..|..55
+|..|..|..LowRAM:HighRAM
+|..|..|..LowBatteryLife:HighBatteryLife
+✅ pass: synonyms
+{'a': 'NUM', 'at': 0, 'hi': 4, 'id': 4303414224, 'lo': 1, 'm2': 8.9, 'mu': 2.9, 'n': 10, 'txt': 'SmallScreen:LargeScreen', 'w': 1}
+{'a': 'NUM', 'at': 1, 'hi': 5, 'id': 4303414272, 'lo': 1, 'm2': 14.9, 'mu': 3.1, 'n': 10, 'txt': 'LowResolution:HighResolution', 'w': 1}
+{'a': 'NUM', 'at': 2, 'hi': 5, 'id': 4303414032, 'lo': 1, 'm2': 11.599999999999998, 'mu': 3.2, 'n': 10, 'txt': 'Affordable:Expensive', 'w': 1}
+{'a': 'NUM', 'at': 3, 'hi': 5, 'id': 4303413408, 'lo': 2, 'm2': 8.1, 'mu': 3.3000000000000003, 'n': 10, 'txt': 'LowRAM:HighRAM', 'w': 1}
+{'a': 'NUM', 'at': 4, 'hi': 5, 'id': 4303413936, 'lo': 2, 'm2': 12.4, 'mu': 3.4, 'n': 10, 'txt': 'OldMicroChip:NewMicroChip', 'w': 1}
+{'a': 'NUM', 'at': 5, 'hi': 5, 'id': 4303413456, 'lo': 2, 'm2': 6.9, 'mu': 3.1, 'n': 10, 'txt': 'LowBatteryLife:HighBatteryLife', 'w': 1}
+{'a': 'SYM', 'at': 6, 'has': {}, 'id': 4303414800, 'mode': None, 'most': 0, 'n': 0, 'txt': 'thingX'}
+{'a': 'ROW', 'cells': [3, 2, 3, 4, 3, 3, 'Samsung Galaxy 21'], 'id': 4303413360}
+{'a': 'ROW', 'cells': [4, 3, 3, 4, 3, 3, 'OnePlus 10 Pro'], 'id': 4303414512}
+{'a': 'ROW', 'cells': [3, 2, 1, 3, 2, 2, 'RealMe X2'], 'id': 4303415184}
+{'a': 'ROW', 'cells': [3, 3, 2, 3, 2, 3, 'OnePlus 10'], 'id': 4303413312}
+{'a': 'ROW', 'cells': [4, 5, 4, 3, 4, 4, 'Google Pixel 7 Pro'], 'id': 4303417104}
+{'a': 'ROW', 'cells': [3, 4, 3, 4, 4, 3, 'Samsung Galaxy 22+'], 'id': 4303415712}
+{'a': 'ROW', 'cells': [4, 5, 4, 5, 5, 5, 'Samsung Galaxy 23'], 'id': 4303414176}
+{'a': 'ROW', 'cells': [1, 1, 3, 2, 2, 2, 'Iphone X'], 'id': 4303416960}
+{'a': 'ROW', 'cells': [2, 3, 4, 2, 4, 3, 'Iphone 13'], 'id': 4303415232}
+{'a': 'ROW', 'cells': [2, 3, 5, 3, 5, 3, 'Iphone 14'], 'id': 4303415376}
+✅ pass: reprows
+71
+|..40
+|..|..33
+|..|..|..Google Pixel 7 Pro
+|..|..|..Samsung Galaxy 23
+|..|..46
+|..|..|..Iphone 14
+|..|..|..22
+|..|..|..|..OnePlus 10 Pro
+|..|..|..|..Samsung Galaxy 22+
+|..44
+|..|..40
+|..|..|..Iphone X
+|..|..|..Iphone 13
+|..|..31
+|..|..|..Samsung Galaxy 21
+|..|..|..20
+|..|..|..|..RealMe X2
+|..|..|..|..OnePlus 10
+✅ pass: prototypes
+
+A Samsung Galaxy 21
+B OnePlus 10 Pro
+C RealMe X2
+D OnePlus 10
+E Google Pixel 7 Pro
+F Samsung Galaxy 22+
+G Samsung Galaxy 23
+H Iphone X
+I Iphone 13
+J Iphone 14
+
+E                           H          
+                                       
+                                       
+            I                          
+      F     A D                        
+        B                              
+G         J         C                  
+✅ pass: position
+71
+|..40
+|..|..33
+|..|..|..Google Pixel 7 Pro
+|..|..|..Samsung Galaxy 23
+|..|..46
+|..|..|..Iphone 14
+|..|..|..22
+|..|..|..|..OnePlus 10 Pro
+|..|..|..|..Samsung Galaxy 22+
+|..44
+|..|..40
+|..|..|..Iphone X
+|..|..|..Iphone 13
+|..|..31
+|..|..|..Samsung Galaxy 21
+|..|..|..20
+|..|..|..|..RealMe X2
+|..|..|..|..OnePlus 10
+81
+|..50
+|..|..OldMicroChip:NewMicroChip
+|..|..74
+|..|..|..Affordable:Expensive
+|..|..|..LowResolution:HighResolution
+|..53
+|..|..SmallScreen:LargeScreen
+|..|..55
+|..|..|..LowRAM:HighRAM
+|..|..|..LowBatteryLife:HighBatteryLife
+
+A Samsung Galaxy 21
+B OnePlus 10 Pro
+C RealMe X2
+D OnePlus 10
+E Google Pixel 7 Pro
+F Samsung Galaxy 22+
+G Samsung Galaxy 23
+H Iphone X
+I Iphone 13
+J Iphone 14
+
+E                           H          
+                                       
+                                       
+            I                          
+      F     A D                        
+        B                              
+G         J         C                  
+✅ pass: every
