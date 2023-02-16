@@ -1,12 +1,12 @@
 local _ = " "
 return {
  domain="SmartPhones",
- cols={   {'SmallScreen', 3, 4, 3, 3, 4, 3, 4, 1, 2, 2, 'LargeScreen'},
-          {'LowResolution', 2, 3, 2, 3, 5, 4, 5, 1, 3, 3, 'HighResolution'},
-          {'Affordable', 3, 3, 1, 2, 4, 3, 4, 3, 4, 5, 'Expensive'},
-          {'LowRAM' , 4, 4, 3, 3, 3, 4, 5, 2, 2, 3, 'HighRAM'},
-          {'OldMicroChip', 3, 3, 2, 2, 4, 4, 5, 2, 4, 5, 'NewMicroChip'},
-          {'LowBatteryLife', 3, 3, 2, 3, 4, 3, 5, 2, 3, 3, 'HighBatteryLife'}},
+ cols={   {'LowProcessingSpeed', 3, 4, 2, 3, 4, 3, 4, 5, 5, 5, 'HighProcessingSpeed'},
+          {'LowCameraQuality', 5, 4, 4, 4, 4, 5, 5, 3, 3, 3, 'HighCameraQuality'},
+          {'LowNetworkReception', 5, 3, 1, 2, 4, 5, 5, 3, 4, 5, 'HighNetworkReception'},
+          {'SmallBatteryCapacity', 3, 5, 4, 5, 5, 5, 4, 2, 4, 3, 'LargeBatteryCapacity'},
+          {'LowPixelDensity', 3, 5, 2, 5, 5, 3, 3, 4, 4, 4, 'HighPixelDensity'},
+          {'LowStorage', 4, 4, 3, 4, 5, 4, 4, 4, 5, 5, 'HighStorage'}},
 rows={                      { _, _, _, _, _, _, _, _, _, 'Iphone 14'},
                             { _, _, _, _, _, _, _, _, 'Iphone 13'},
                             { _, _, _, _, _, _, _, 'Iphone X'},
