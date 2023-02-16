@@ -8,9 +8,14 @@ Welcome to CSC591_ASE_Assignments 👋
 
 #### Simple Python project with Help text functionality and Test suite
 
+## Repo Structure
 
+- [HW1](https://github.com/vishakayadav/CSC591_ASE_Assignments/tree/main/HW1) - HOMEWORK 1
+- [HW2](https://github.com/vishakayadav/CSC591_ASE_Assignments/tree/main/HW2) - HOMEWORK 2
+- [HW3](https://github.com/vishakayadav/CSC591_ASE_Assignments/tree/main/HW3) - HOMEWORK 3
+- [HW4](https://github.com/vishakayadav/CSC591_ASE_Assignments/tree/main/HW4) - HOMEWORK 4
+  - [HW4/docs/report.md](HW4/docs/report.md) Interviews Report for HW4
 
-### 🏠 [Homepage](https://github.com/Vishaka2502/CSC591_ASE_Assignments#readme)
 
 ### Install
 ```sh
@@ -18,22 +23,22 @@ python setup.py install
 ```
 
 ### Run tests
-- Test HW1
 ```sh
-python HW1/src/script.py -g all
+bash test.sh HW1 HW2 HW3 HW4 ...  
+# pass command line argument as list of HW<number>
+# these tests would run with default settings provided in settings.py of each homework folder (HW{n}/src/settings.py)
+# in order to run tests with different argument please check the readme under respective homework folder
 ```
-- Test HW2
-```sh
-python HW2/src/script.py -g all --file HW2/etc/data/auto93.csv
-```
-- Test HW3
-```sh
-python HW3/src/script.py -g all --file HW3/etc/data/auto93.csv
-```
-- Test HW3
-```sh
-python HW4/src/script.py -g all --file HW4/etc/data/repgrid1.csv
-```
+
+
+## Documentation
+- [HW1 documentation](https://htmlpreview.github.io/?https://github.com/Vishaka2502/CSC591_ASE_Assignments/blob/main/HW1/docs/html/index.html) 
+- [HW2 documentation](https://htmlpreview.github.io/?https://github.com/Vishaka2502/CSC591_ASE_Assignments/blob/main/HW2/docs/html/index.html)
+- [HW3 documentation](https://htmlpreview.github.io/?https://github.com/Vishaka2502/CSC591_ASE_Assignments/blob/main/HW3/docs/html/index.html)
+- [HW4 documentation](https://htmlpreview.github.io/?https://github.com/Vishaka2502/CSC591_ASE_Assignments/blob/main/HW4/docs/html/index.html)
+---
+Generate the documentation ` pycco -i HWx/src/*.py -d HWx/docs/html/ `
+
 
 ### Author
 👤 **spandey5, snaik2, vyadav**
@@ -42,7 +47,3 @@ python HW4/src/script.py -g all --file HW4/etc/data/repgrid1.csv
 ### 📝 License
 
 This project is [MIT](https://github.com/Vishaka2502/CSC591_ASE_Assignments/blob/main/LICENSE.md) licensed.
-
----
-_This README was created with the [markdown-readme-generator](https://github.com/pedroermarinho/markdown-readme-generator)_
-
