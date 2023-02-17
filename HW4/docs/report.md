@@ -9,7 +9,7 @@ They chose attributes that cover major differences between Phones belonging to d
 The second person we interviewed differentiated between phones on attributes such as ProcessingSpeed, CameraQuality, NetworkReception, BatteryCapacity, Storage etc. 
 They chose attributes that cover major popular demands of the Users using high price range smartphones. 
 
-The third person we interviewed differentiated between phones on attributes ...
+The third person we interviewed differentiated between phones on attributes such as CameraPerformance, Weight, RefreshRate, BatteryChargingSpeed, ProcessorCapacity and SoftwareUpdatesDelivery. They chose attributes that cover primary user funcitonalities across the flagship/premium phones of different brands. 
 
 
 ## Observation:
@@ -19,10 +19,6 @@ Simply by glancing at our data, we can see that the sole feature we had in commo
 All of our clustering results had a consistent outlier: the Google Pixel 7 Pro. We took this to mean that the Pixel 7 Pro stood out among all the other well-known smartphones now available.
 This result is consistent with the current trend, as the Reader's Choice Phone of the Year 2022 title went to the Google Pixel 7 Pro.
 We have observed the presence of smartphones from the same brands in the same cluster. This demonstrates the difference in the underlining technologies each brand uses.
-
-From the first interview, clustering on cols provided us with synonyms, for example, 
-Affordable:Expensive is synonymous with LowResolution:HighResolution which is reasonable as Higher the resolution, more is the market price of the Phone. 
-LowRAM:HighRAM and LowBatteryLife:HighBatteryLife are also synonymous as Lower RAM will result in higher processing time, eating up more battery life.
 
 Apart from this, we didn't really understand the majority of our clusters. This might be the case since different user types have varied perspectives on each smartphone, 
 which leads us to believe that Repertory grids might just be effective at removing bias.
@@ -191,3 +187,88 @@ E                           C
 J                                      
           H  
 ```
+*****
+
+#### repgrid_interview_3.csv
+```
+local _ = " "
+return {
+ domain="SmartPhones",
+ cols={   {'LowRefreshRate', 3, 3, 3, 5, 5, 5, 5, 4, 5, 4, 'HighRefreshRate'},
+          {'LowProcessorCapacity', 4, 3, 3, 5, 4, 5, 5, 5, 5, 4, 'HighProcessorCapacity'},
+          {'SlowBatteryCharging', 2, 3, 2, 3, 3, 4, 5, 4, 5, 3, 'FastBatteryCharging'},
+          {'Light', 4, 4, 4, 4, 4, 3, 3, 3, 3, 4, 'Heavy'},
+          {'LowCameraPerformance', 4, 5, 3, 5, 5, 5, 4, 3, 5, 4, 'HighCameraPerformance'},
+          {'DelayedSoftwareUpdates', 5, 4, 2, 5, 4, 5, 4, 3, 5, 3, 'QuickSoftwareUpdates'}},
+rows={                      { _, _, _, _, _, _, _, _, _, 'Iphone 14'},
+                            { _, _, _, _, _, _, _, _, 'Iphone 13'},
+                            { _, _, _, _, _, _, _, 'Iphone X'},
+                            { _, _, _, _, _, _, 'Samsung Galaxy 23'},
+                            { _, _, _, _, _,  'Samsung Galaxy 22+'},
+                            { _, _, _, _,  'Google Pixel 7 Pro'},
+                            { _, _, _,  'OnePlus 10'},
+                            { _, _,  'RealMe X2'},
+                            { _, 'OnePlus 10 Pro'},
+                            {'Samsung Galaxy 21'}} }
+
+```
+*****
+
+#### repgrid_interview_3_output
+```
+68
+|..57
+|..|..25
+|..|..|..Google Pixel 7 Pro
+|..|..|..OnePlus 10
+|..|..28
+|..|..|..Samsung Galaxy 23
+|..|..|..14
+|..|..|..|..Samsung Galaxy 22+
+|..|..|..|..Iphone 13
+|..68
+|..|..51
+|..|..|..RealMe X2
+|..|..|..OnePlus 10 Pro
+|..|..66
+|..|..|..Iphone X
+|..|..|..37
+|..|..|..|..Samsung Galaxy 21
+|..|..|..|..Iphone 14
+74
+|..57
+|..|..LowCameraPerformance:HighCameraPerformance
+|..|..66
+|..|..|..Light:Heavy
+|..|..|..LowRefreshRate:HighRefreshRate
+|..59
+|..|..SlowBatteryCharging:FastBatteryCharging
+|..|..53
+|..|..|..LowProcessorCapacity:HighProcessorCapacity
+|..|..|..DelayedSoftwareUpdates:QuickSoftwareUpdates
+
+A Samsung Galaxy 21
+B OnePlus 10 Pro
+C RealMe X2
+D OnePlus 10
+E Google Pixel 7 Pro
+F Samsung Galaxy 22+
+G Samsung Galaxy 23
+H Iphone X
+I Iphone 13
+J Iphone 14
+
+E                         C
+
+          J
+
+D
+
+            B
+            A
+
+F
+I
+G           H  
+```
+*****

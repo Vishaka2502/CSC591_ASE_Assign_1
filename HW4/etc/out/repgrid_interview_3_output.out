@@ -1,0 +1,154 @@
+✅ pass: the
+b4 {'a': 1, 'b': {'c': 2, 'd': [3]}}
+after {'a': 1, 'b': {'c': 2, 'd': [10000]}}
+✅ pass: copy
+✅ pass: sym
+✅ pass: num
+{'a': 'NUM', 'at': 0, 'hi': 5, 'id': 3054516177984, 'lo': 2, 'm2': 5.333333333333334, 'mu': 3.6666666666666665, 'n': 6, 'txt': 'Num1', 'w': 1}
+{'a': 'NUM', 'at': 1, 'hi': 5, 'id': 3054516178560, 'lo': 3, 'm2': 3.333333333333333, 'mu': 3.666666666666667, 'n': 6, 'txt': 'Num2', 'w': 1}
+{'a': 'NUM', 'at': 2, 'hi': 4, 'id': 3054516177600, 'lo': 2, 'm2': 2.8333333333333335, 'mu': 2.8333333333333335, 'n': 6, 'txt': 'Num3', 'w': 1}
+{'a': 'NUM', 'at': 3, 'hi': 5, 'id': 3054519126816, 'lo': 3, 'm2': 3.4999999999999987, 'mu': 4.5, 'n': 6, 'txt': 'Num4', 'w': 1}
+{'a': 'NUM', 'at': 4, 'hi': 5, 'id': 3054519125040, 'lo': 3, 'm2': 2.833333333333333, 'mu': 4.166666666666667, 'n': 6, 'txt': 'Num5', 'w': 1}
+{'a': 'NUM', 'at': 5, 'hi': 5, 'id': 3054519124080, 'lo': 3, 'm2': 3.5000000000000004, 'mu': 4.5, 'n': 6, 'txt': 'Num6', 'w': 1}
+{'a': 'NUM', 'at': 6, 'hi': 5, 'id': 3054519124224, 'lo': 3, 'm2': 3.333333333333334, 'mu': 4.333333333333334, 'n': 6, 'txt': 'Num7', 'w': 1}
+{'a': 'NUM', 'at': 7, 'hi': 5, 'id': 3054519124704, 'lo': 3, 'm2': 3.3333333333333326, 'mu': 3.6666666666666665, 'n': 6, 'txt': 'Num8', 'w': 1}
+{'a': 'NUM', 'at': 8, 'hi': 5, 'id': 3054519127728, 'lo': 3, 'm2': 3.333333333333334, 'mu': 4.666666666666666, 'n': 6, 'txt': 'Num9', 'w': 1}
+{'a': 'NUM', 'at': 9, 'hi': 4, 'id': 3054519127920, 'lo': 3, 'm2': 1.333333333333333, 'mu': 3.6666666666666665, 'n': 6, 'txt': 'Num10', 'w': 1}
+{'a': 'SYM', 'at': 10, 'has': {}, 'id': 3054519127440, 'mode': None, 'most': 0, 'n': 0, 'txt': 'thingX'}
+{'a': 'ROW', 'cells': [3, 3, 3, 5, 5, 5, 5, 4, 5, 4, 'LowRefreshRate:HighRefreshRate'], 'id': 3054516178752}
+{'a': 'ROW', 'cells': [4, 3, 3, 5, 4, 5, 5, 5, 5, 4, 'LowProcessorCapacity:HighProcessorCapacity'], 'id': 3054516178656}
+{'a': 'ROW', 'cells': [2, 3, 2, 3, 3, 4, 5, 4, 5, 3, 'SlowBatteryCharging:FastBatteryCharging'], 'id': 3054519127344}
+{'a': 'ROW', 'cells': [4, 4, 4, 4, 4, 3, 3, 3, 3, 4, 'Light:Heavy'], 'id': 3054519126912}
+{'a': 'ROW', 'cells': [4, 5, 3, 5, 5, 5, 4, 3, 5, 4, 'LowCameraPerformance:HighCameraPerformance'], 'id': 3054519124128}
+{'a': 'ROW', 'cells': [5, 4, 2, 5, 4, 5, 4, 3, 5, 3, 'DelayedSoftwareUpdates:QuickSoftwareUpdates'], 'id': 3054519126672}
+✅ pass: repcols
+74
+|..57
+|..|..LowCameraPerformance:HighCameraPerformance
+|..|..66
+|..|..|..Light:Heavy
+|..|..|..LowRefreshRate:HighRefreshRate
+|..59
+|..|..SlowBatteryCharging:FastBatteryCharging
+|..|..53
+|..|..|..LowProcessorCapacity:HighProcessorCapacity
+|..|..|..DelayedSoftwareUpdates:QuickSoftwareUpdates
+✅ pass: synonyms
+{'a': 'NUM', 'at': 0, 'hi': 5, 'id': 3054516337056, 'lo': 3, 'm2': 7.6000000000000005, 'mu': 4.2, 'n': 10, 'txt': 'LowRefreshRate:HighRefreshRate', 'w': 1}
+{'a': 'NUM', 'at': 1, 'hi': 5, 'id': 3054516337392, 'lo': 3, 'm2': 6.099999999999999, 'mu': 4.3, 'n': 10, 'txt': 'LowProcessorCapacity:HighProcessorCapacity', 'w': 1}
+{'a': 'NUM', 'at': 2, 'hi': 5, 'id': 3054516337488, 'lo': 2, 'm2': 10.399999999999999, 'mu': 3.4000000000000004, 'n': 10, 'txt': 'SlowBatteryCharging:FastBatteryCharging', 'w': 1}
+{'a': 'NUM', 'at': 3, 'hi': 4, 'id': 3054516338592, 'lo': 3, 'm2': 2.4000000000000004, 'mu': 3.5999999999999996, 'n': 10, 'txt': 'Light:Heavy', 'w': 1}
+{'a': 'NUM', 'at': 4, 'hi': 5, 'id': 3054516336960, 'lo': 3, 'm2': 6.1, 'mu': 4.3, 'n': 10, 'txt': 'LowCameraPerformance:HighCameraPerformance', 'w': 1}
+{'a': 'NUM', 'at': 5, 'hi': 5, 'id': 3054516335280, 'lo': 2, 'm2': 10.0, 'mu': 3.9999999999999996, 'n': 10, 'txt': 'DelayedSoftwareUpdates:QuickSoftwareUpdates', 'w': 1}
+{'a': 'SYM', 'at': 6, 'has': {}, 'id': 3054516337968, 'mode': None, 'most': 0, 'n': 0, 'txt': 'thingX'}
+{'a': 'ROW', 'cells': [3, 4, 2, 4, 4, 5, 'Samsung Galaxy 21'], 'id': 3054516335376}
+{'a': 'ROW', 'cells': [3, 3, 3, 4, 5, 4, 'OnePlus 10 Pro'], 'id': 3054516334848}
+{'a': 'ROW', 'cells': [3, 3, 2, 4, 3, 2, 'RealMe X2'], 'id': 3054516335424}
+{'a': 'ROW', 'cells': [5, 5, 3, 4, 5, 5, 'OnePlus 10'], 'id': 3054516335904}
+{'a': 'ROW', 'cells': [5, 4, 3, 4, 5, 4, 'Google Pixel 7 Pro'], 'id': 3054516335664}
+{'a': 'ROW', 'cells': [5, 5, 4, 3, 5, 5, 'Samsung Galaxy 22+'], 'id': 3054516335184}
+{'a': 'ROW', 'cells': [5, 5, 5, 3, 4, 4, 'Samsung Galaxy 23'], 'id': 3054516334944}
+{'a': 'ROW', 'cells': [4, 5, 4, 3, 3, 3, 'Iphone X'], 'id': 3054516336816}
+{'a': 'ROW', 'cells': [5, 5, 5, 3, 5, 5, 'Iphone 13'], 'id': 3054516334992}
+{'a': 'ROW', 'cells': [4, 4, 3, 4, 4, 3, 'Iphone 14'], 'id': 3054516337344}
+✅ pass: reprows
+68
+|..57
+|..|..25
+|..|..|..Google Pixel 7 Pro
+|..|..|..OnePlus 10
+|..|..28
+|..|..|..Samsung Galaxy 23
+|..|..|..14
+|..|..|..|..Samsung Galaxy 22+
+|..|..|..|..Iphone 13
+|..68
+|..|..51
+|..|..|..RealMe X2
+|..|..|..OnePlus 10 Pro
+|..|..66
+|..|..|..Iphone X
+|..|..|..37
+|..|..|..|..Samsung Galaxy 21
+|..|..|..|..Iphone 14
+✅ pass: prototypes
+
+A Samsung Galaxy 21
+B OnePlus 10 Pro
+C RealMe X2
+D OnePlus 10
+E Google Pixel 7 Pro
+F Samsung Galaxy 22+
+G Samsung Galaxy 23
+H Iphone X
+I Iphone 13
+J Iphone 14
+
+E                         C
+
+          J
+
+D
+
+            B
+            A
+
+F
+I
+G           H
+✅ pass: position
+68
+|..57
+|..|..25
+|..|..|..Google Pixel 7 Pro
+|..|..|..OnePlus 10
+|..|..28
+|..|..|..Samsung Galaxy 23
+|..|..|..14
+|..|..|..|..Samsung Galaxy 22+
+|..|..|..|..Iphone 13
+|..68
+|..|..51
+|..|..|..RealMe X2
+|..|..|..OnePlus 10 Pro
+|..|..66
+|..|..|..Iphone X
+|..|..|..37
+|..|..|..|..Samsung Galaxy 21
+|..|..|..|..Iphone 14
+74
+|..57
+|..|..LowCameraPerformance:HighCameraPerformance
+|..|..66
+|..|..|..Light:Heavy
+|..|..|..LowRefreshRate:HighRefreshRate
+|..59
+|..|..SlowBatteryCharging:FastBatteryCharging
+|..|..53
+|..|..|..LowProcessorCapacity:HighProcessorCapacity
+|..|..|..DelayedSoftwareUpdates:QuickSoftwareUpdates
+
+A Samsung Galaxy 21
+B OnePlus 10 Pro
+C RealMe X2
+D OnePlus 10
+E Google Pixel 7 Pro
+F Samsung Galaxy 22+
+G Samsung Galaxy 23
+H Iphone X
+I Iphone 13
+J Iphone 14
+
+E                         C
+
+          J
+
+D
+
+            B
+            A
+
+F
+I
+G           H
+✅ pass: every
