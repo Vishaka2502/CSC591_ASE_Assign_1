@@ -1,0 +1,19 @@
+local _ = " "
+return {
+ domain="SmartPhones",
+ cols={   {'LowRefreshRate', 3, 3, 3, 5, 5, 5, 5, 4, 5, 4, 'HighRefreshRate'},
+          {'LowProcessorCapacity', 4, 3, 3, 5, 4, 5, 5, 5, 5, 4, 'HighProcessorCapacity'},
+          {'SlowBatteryCharging', 2, 3, 2, 3, 3, 4, 5, 4, 5, 3, 'FastBatteryCharging'},
+          {'Light', 4, 4, 4, 4, 4, 3, 3, 3, 3, 4, 'Heavy'},
+          {'LowCameraPerformance', 4, 5, 3, 5, 5, 5, 4, 3, 5, 4, 'HighCameraPerformance'},
+          {'DelayedSoftwareUpdates', 5, 4, 2, 5, 4, 5, 4, 3, 5, 3, 'QuickSoftwareUpdates'}},
+rows={                      { _, _, _, _, _, _, _, _, _, 'Iphone 14'},
+                            { _, _, _, _, _, _, _, _, 'Iphone 13'},
+                            { _, _, _, _, _, _, _, 'Iphone X'},
+                            { _, _, _, _, _, _, 'Samsung Galaxy 23'},
+                            { _, _, _, _, _,  'Samsung Galaxy 22+'},
+                            { _, _, _, _,  'Google Pixel 7 Pro'},
+                            { _, _, _,  'OnePlus 10'},
+                            { _, _,  'RealMe X2'},
+                            { _, 'OnePlus 10 Pro'},
+                            {'Samsung Galaxy 21'}} }
