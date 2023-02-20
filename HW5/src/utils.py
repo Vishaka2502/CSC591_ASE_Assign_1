@@ -1,7 +1,6 @@
 import json
 import math
 import re
-import sys
 from copy import deepcopy
 from pathlib import Path
 from typing import Union, List
@@ -107,10 +106,9 @@ def o(t) -> str:
     """
     Returns string representation of `t` where keys are in ascending order.
     """
-    d = t.__dict__
-    d['a'] = t.__class__.__name__
-    d['id'] = id(t)
-    return dict(sorted(d.items())).__repr__()
+    t['a'] = t.__class__.__name__
+    t['id'] = id(t)
+    return dict(sorted(t.items())).__repr__()
 
 
 def oo(t: any) -> any:
@@ -187,7 +185,7 @@ def bins(cols, rowss):
                     k = int(bin(col, x))
                     range = RANGE(col.at, col.txt, x)
                     ranges[k] = ranges[k] if k in ranges else range.get()
-                    ranges[k] = range.extend(x, y)
+                    range.extend(ranges[k], x, y)
         map(itself, ranges)
         ranges = list(dict(sorted(ranges.items())).values())
         out.append(ranges if isinstance(col, SYM) else merge_any(ranges))
@@ -216,8 +214,8 @@ def merge_any(ranges0):
     def no_gaps(t):
         for j in range(1, len(t)):
             t[j]['lo'] = t[j - 1]['hi']
-        t[0]['lo'] = -sys.maxsize
-        t[len(t) - 1]['hi'] = sys.maxsize
+        t[0]['lo'] = -math.inf
+        t[len(t) - 1]['hi'] = math.inf
         return t
 
     ranges1, j = [], 0
@@ -280,8 +278,8 @@ def value(has: dict, nb: int = 1, nr: int = 1, sgoal=None) -> float:
             b = b + n
         else:
             r = r + n
-    b = b / (nb + 1 / sys.maxsize)
-    r = r / (nr + 1 / sys.maxsize)
+    b = b / (nb + 1 / math.inf)
+    r = r / (nr + 1 / math.inf)
     return b ** 2 / (b + r)
 
 
@@ -309,7 +307,7 @@ def cliffs_delta(ns1, ns2) -> bool:
                 gt = gt + 1
             if x < y:
                 lt = lt + 1
-    return abs(lt - gt) / n > the['cliffs']
+    return (abs(lt - gt) / n) > the['cliffs']
 
 
 def dofile(file: str) -> dict:

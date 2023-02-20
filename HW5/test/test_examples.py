@@ -7,8 +7,7 @@ n = 0
 
 
 def test_the():
-    r = str(the)
-    return r
+    oo(the)
 
 
 def test_copy():
@@ -112,6 +111,7 @@ def test_clone():
 
 
 def test_cliffs():
+    utils.seed = the['seed']
     assert (not cliffs_delta([8, 7, 6, 2, 5, 8, 7, 3], [8, 7, 6, 2, 5, 8, 7, 3]))
     assert (cliffs_delta([8, 7, 6, 2, 5, 8, 7, 3], [9, 9, 7, 8, 10, 9, 6]))
     t1, t2 = [], []
@@ -125,10 +125,10 @@ def test_cliffs():
     assert (cliffs_delta(t1, t2))
     diff, j = False, 1.0
     while not diff:
-        def function(x):
+        def temp_func(x):
             return x * j
 
-        t3 = list(map(function, t1))
+        t3 = list(map(temp_func, t1))
         diff = cliffs_delta(t1, t3)
         print(">", rnd(j), diff)
         j = j * 1.025

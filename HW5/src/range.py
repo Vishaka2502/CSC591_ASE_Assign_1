@@ -17,9 +17,9 @@ class RANGE:
                 'hi': self.lo or self.hi or self.lo,
                 'y': self.y}
 
-    def extend(self, n, s) -> dict:
+    @staticmethod
+    def extend(range, n, s) -> dict:
         """Update a RANGE to cover `x` and `y`"""
-        range = self.get()
         range['lo'] = min(n, range['lo'])
         range['hi'] = max(n, range['hi'])
         range['y'].add(s)

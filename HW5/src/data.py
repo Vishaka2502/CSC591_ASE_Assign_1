@@ -33,14 +33,14 @@ class DATA:
         else:
             self.cols = COLS(t)  # here, we create "i.cols" from the first row
 
-    def clone(self, init: list) -> 'DATA':
+    def clone(self, init: list = []) -> 'DATA':
         """
         Returns a clone with the same structure
         :param init: Initial data for the clone
         :return:
         """
         data = DATA([self.cols.names])
-        list(map(data.add, init or []))
+        list(map(data.add, init))
         return data
 
     def stats(self, what: str = 'mid', cols=None, n_places: int = 0) -> (Union[float, str], str):
@@ -190,9 +190,10 @@ class DATA:
         Recursively prune the worst half the data
         :return: the survivors and some sample of the rest
         """
+        data = self
 
         def worker(rows, worse, above=None):
-            if len(rows) <= len(rows) ** the['min']:
+            if len(rows) <= len(data.rows) ** the['min']:
                 return rows, utils.many(worse, the['rest'] * len(rows))
             else:
                 l, r, A, B, mid, c = self.half(rows=rows, above=above)

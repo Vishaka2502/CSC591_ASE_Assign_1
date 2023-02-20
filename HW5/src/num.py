@@ -1,7 +1,7 @@
-import sys
+import math
 from typing import Union
 
-from HW5.src.utils import rnd
+from HW5.src.utils import rnd, the
 
 
 # class num
@@ -13,8 +13,8 @@ class NUM:
         self.n = 0
         self.mu = 0
         self.m2 = 0
-        self.lo = sys.maxsize
-        self.hi = -sys.maxsize
+        self.lo = math.inf
+        self.hi = -math.inf
         self.w = -1 if "-" in self.txt else 1
         self.has = {}
 
@@ -26,6 +26,9 @@ class NUM:
         """
         if n != '?':
             self.n += count
+            if self.n <= the['Max']:
+                self.has[n] = n
+
             d = n - self.mu
             self.mu += d / self.n
             self.m2 += d * (n - self.mu)
