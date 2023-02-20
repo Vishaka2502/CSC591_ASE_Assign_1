@@ -15,19 +15,17 @@ class NUM:
         self.m2 = 0
         self.lo = sys.maxsize
         self.hi = -sys.maxsize
-        self.w = 0
-        if '-' in self.txt:
-            self.w = -1
-        else:
-            self.w = 1
+        self.w = -1 if "-" in self.txt else 1
+        self.has = {}
 
-    def add(self, n: Union[float, str]) -> None:
+    def add(self, n: Union[float, str], count: int = 1) -> None:
         """
         Add n and update values required for standard deviation
         :param n: Union[float, str]:
+        :param count: int:
         """
         if n != '?':
-            self.n += 1
+            self.n += count
             d = n - self.mu
             self.mu += d / self.n
             self.m2 += d * (n - self.mu)

@@ -1,9 +1,9 @@
-# Homework 4
-Conversion of [grid.lua](https://github.com/timm/tested/blob/main/src/grid.lua) to Grid
+# Homework 5
+Conversion of [bins.lua](https://github.com/timm/tested/blob/main/src/bins.lua)
 
 ## Steps to Execute
 ```sh
 python setup.py install
-cd HW4  # home directory of HW4
-python src/main.py -g all --file etc/data/repgrid1.csv
+cd HW5  # home directory of HW5
+python src/main.py -g all --file etc/data/auto93.csv
 ```

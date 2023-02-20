@@ -1,11 +1,14 @@
 import json
 import math
 import re
+import sys
 from copy import deepcopy
 from pathlib import Path
 from typing import Union, List
 
 import settings
+from HW5.src.range import RANGE
+from HW5.src.sym import SYM
 
 the = settings.THE
 seed = settings.SEED
@@ -18,7 +21,7 @@ def rint(low: int, high: int) -> int:
     """
     Returns an integer between low to high-1
     """
-    return 4 or math.floor(0.5 + rand(low, high))
+    return math.floor(0.5 + rand(low, high))
 
 
 def rand(low: int = 0, high: int = 1) -> float:
@@ -153,7 +156,162 @@ def csv(s_filename: str, func) -> None:
             func(row)
 
 
+# Clustering
+def showTree(node, what, cols, nPlaces, lvl=0):
+    """Cluster can be displayed by this function."""
+    if node:
+        print('|.. ' * lvl + '[' + str(len(node['data'].rows)) + ']' + '  ', end='')
+        if not node.get('left') or lvl == 0:
+            print(node['data'].stats("mid", node['data'].cols.y, nPlaces))
+        else:
+            print('')
+        showTree(node.get('left'), what, cols, nPlaces, lvl + 1)
+        showTree(node.get('right'), what, cols, nPlaces, lvl + 1)
+
+
+# Discretization
+def bins(cols, rowss):
+    """
+    Return RANGEs that distinguish sets of rows (stored in `rowss`).
+    To reduce the search space, values in `col` are mapped to small number of `bin`s.
+    For NUMs, that number is `the.bins=16` (say) (and after dividing the column into, say, 16 bins,
+    then we call `mergeAny` to see how many of them can be combined with their neighboring bin).
+    """
+    out = []
+    for col in cols:
+        ranges = {}
+        for y, rows in rowss.items():
+            for row in rows:
+                x = row.cells[col.at]
+                if x != "?":
+                    k = int(bin(col, x))
+                    range = RANGE(col.at, col.txt, x)
+                    ranges[k] = ranges[k] if k in ranges else range.get()
+                    ranges[k] = range.extend(x, y)
+        map(itself, ranges)
+        ranges = list(dict(sorted(ranges.items())).values())
+        out.append(ranges if isinstance(col, SYM) else merge_any(ranges))
+    return out
+
+
+def bin(col, x) -> int:
+    """
+    Map `x` into a small number of bins. `SYM`s just get mapped to themselves but
+    `NUM`s get mapped to one of `the.bins` values.
+    Called by function `bins`.
+    """
+    if x == "?" or isinstance(col, SYM):
+        return x
+    tmp = (col.hi - col.lo) / (the['bins'] - 1)
+    return 1 if col.hi == col.lo else math.floor(float(x) / tmp + .5) * tmp
+
+
+def merge_any(ranges0):
+    """
+    Given a sorted list of ranges, try fusing adjacent items (stopping when no more fuse-ings can be found).
+    When done, make the ranges run from minus to plus infinity (with no gaps in between).
+    Called by function `bins`.
+    """
+
+    def no_gaps(t):
+        for j in range(1, len(t)):
+            t[j]['lo'] = t[j - 1]['hi']
+        t[0]['lo'] = -sys.maxsize
+        t[len(t) - 1]['hi'] = sys.maxsize
+        return t
+
+    ranges1, j = [], 0
+    while j < len(ranges0):
+        left = ranges0[j]
+        right = None
+        try:
+            right = ranges0[j + 1]
+        except:
+            pass
+        if right:
+            y = merge2(left['y'], right['y'])
+            if y:
+                j = j + 1
+                left['hi'], left['y'] = right['hi'], y
+        ranges1.append(left)
+        j = j + 1
+    return no_gaps(ranges0) if len(ranges0) == len(ranges1) else merge_any(ranges1)
+
+
+def merge2(col1, col2):
+    """
+    If the whole is as good (or simpler) than the parts, then return the combination of 2 `col`s.
+    Called by function `mergeMany`.
+    """
+    new = merge(col1, col2)
+    if new.div() <= (col1.div() * col1.n + col2.div() * col2.n) / new.n:
+        return new
+
+
+def merge(col1, col2):
+    """
+    Merge two `cols`. Called by function `merge2`
+    """
+    new = deepcopy(col1)
+    if isinstance(col1, SYM):
+        for n in col2.has:
+            new.add(n)
+    else:
+        for n in col2.has:
+            new.add(new, n)
+        new.lo = min(col1.lo, col2.lo)
+        new.hi = max(col1.hi, col2.hi)
+    return new
+
+
 # Miscellaneous Operations
+def itself(x: any) -> any:
+    """Return self"""
+    return x
+
+
+def value(has: dict, nb: int = 1, nr: int = 1, sgoal=None) -> float:
+    """A query that returns the score a distribution of symbols inside a SYM."""
+    sgoal = sgoal or True
+    b = 0
+    r = 0
+    for x, n in has.items():
+        if x == sgoal:
+            b = b + n
+        else:
+            r = r + n
+    b = b / (nb + 1 / sys.maxsize)
+    r = r / (nr + 1 / sys.maxsize)
+    return b ** 2 / (b + r)
+
+
+def cliffs_delta(ns1, ns2) -> bool:
+    """
+    Non-parametric effect-size test M.Hess, J.Kromrey.
+    Robust Confidence Intervals for Effect Sizes:
+    A Comparative Study of Cohen's d and Cliff's Delta Under Non-normality and Heterogeneous Variances
+    American Educational Research Association, San Diego, April 12 - 16, 2004
+    0.147=  small, 0.33 =  medium, 0.474 = large; med --> small at .2385
+    """
+    if len(ns1) > 256:
+        ns1 = many(ns1, 256)
+    if len(ns2) > 256:
+        ns2 = many(ns2, 256)
+    if len(ns1) > 10 * len(ns2):
+        ns1 = many(ns1, 10 * len(ns2))
+    if len(ns2) > 10 * len(ns1):
+        ns2 = many(ns2, 10 * len(ns1))
+    n, gt, lt = 0, 0, 0
+    for x in ns1:
+        for y in ns2:
+            n = n + 1
+            if x > y:
+                gt = gt + 1
+            if x < y:
+                lt = lt + 1
+    return abs(lt - gt) / n > the['cliffs']
+
+
 def dofile(file: str) -> dict:
     """
     Loads the file
@@ -175,6 +333,7 @@ def dofile(file: str) -> dict:
     return json.loads(re.sub(r"(\w+):", r'"\1":', text))
 
 
+# Rep Grid util functions
 def rep_cols(cols, data: 'DATA') -> 'DATA':
     cols = copy(cols)
     for col in cols:
@@ -253,6 +412,7 @@ def show(node, what: str = 'mid', cols: List[Union['Num', 'Sym']] = None, n_plac
         show(node.get('right'), what, cols, n_places, lvl + 1)
 
 
+# Test Engine util function
 def example(key: str, text: str, fun) -> None:
     """
     Update the help string with actions passed as key, text and func

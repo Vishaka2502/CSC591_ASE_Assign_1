@@ -116,26 +116,26 @@ class DATA:
     def half(self, rows: List[ROW] = None, cols: List[Union[NUM, SYM]] = None,
              above: ROW = None) -> (list, list, ROW, ROW, ROW, float):
         """
-        Divides data using 2 far points
+        Cluster `rows` into two sets by dividing the data via their distance to two remote points.
+        To speed up finding those remote points, only look at `some` of the data.
+        Also, to avoid outliers, only look `the.Far=.95` (say) of the way across the space.
         """
 
         def dist(row1, row2):
             return self.dist(row1, row2, cols)
 
         def project(row):
-            x, y = cosine(dist(row, A), dist(row, B), c)
-            row.x = row.x if hasattr(row, 'x') else x
-            row.y = row.y if hasattr(row, 'y') else y
-            return {"row": row, "x": x, "y": y}
+            return {'row': row, 'dist': cosine(dist(row, A), dist(row, B), c)}
 
         rows = rows if rows else self.rows
-        A = above or utils.any(rows)
-        B = self.furthest(A, rows)['row']
+        some = utils.many(rows, the['Halves'])
+        A = above or utils.any(some)
+        B = self.around(A, some)[int(the['Far'] * len(rows))//1]['row']
         c = dist(A, B)
         left = []
         right = []
 
-        for n, tmp in enumerate(sorted(list(map(project, rows)), key=lambda k: k['x'])):
+        for n, tmp in enumerate(sorted(list(map(project, rows)), key=lambda k: k['dist'])):
             if n < len(rows) // 2:
                 left.append(tmp['row'])
                 mid = tmp['row']
@@ -144,28 +144,10 @@ class DATA:
 
         return left, right, A, B, mid, c
 
-    def cluster(self, rows: List[ROW] = None, cols: List[Union[NUM, SYM]] = None,
+    def cluster(self, rows: List[ROW] = None, minimum: int = None, cols: List[Union[NUM, SYM]] = None,
                 above: ROW = None) -> dict:
         """
         Get `rows`, recursively halved
-        :param rows:
-        :param cols:
-        :param above:
-        :return:
-        """
-        rows = rows or self.rows
-        cols = cols or self.cols.x
-        node = {'data': self.clone(rows)}
-        if len(rows) >= 2:
-            left, right, node['A'], node['B'], node['mid'], node['c'] = self.half(rows, cols, above)
-            node['left'] = self.cluster(left, cols, node['A'])
-            node['right'] = self.cluster(right, cols, node['B'])
-        return node
-
-    def sway(self, rows: List[ROW] = None, minimum: int = None, cols: List[Union[NUM, SYM]] = None,
-             above: ROW = None) -> dict:
-        """
-        Get best half, recursively
         :param rows:
         :param minimum:
         :param cols:
@@ -176,9 +158,49 @@ class DATA:
         cols = cols or self.cols.x
         minimum = minimum if minimum else len(rows) ** the['min']
         node = {'data': self.clone(rows)}
-        if len(rows) > 2 * minimum:
+        if len(rows) >= 2 * minimum:
             left, right, node['A'], node['B'], node['mid'], _ = self.half(rows, cols, above)
-            if self.better(node['B'], node['A']):
-                left, right, node['A'], node['B'] = right, left, node['B'], node['A']
-            node['left'] = self.sway(left, minimum, cols, node['A'])
+            node['left'] = self.cluster(left, minimum, cols, node['A'])
+            node['right'] = self.cluster(right, minimum, cols, node['B'])
         return node
+
+    def tree(self, rows: List[ROW] = None, minimum: int = None, cols: List[Union[NUM, SYM]] = None,
+             above: ROW = None) -> dict:
+        """
+        Cluster, recursively, some `rows` by  dividing them in two, many times
+        :param rows:
+        :param minimum:
+        :param cols:
+        :param above:
+        :return:
+        """
+        rows = rows or self.rows
+        cols = cols or self.cols.x
+        minimum = minimum if minimum else len(rows) ** the['min']
+
+        node = {'data': self.clone(rows)}
+        if len(rows) >= 2 * minimum:
+            left, right, node['A'], node['B'], node['mid'], _ = self.half(rows, cols, above)
+            node['left'] = self.tree(left, minimum, cols, node['A'])
+            node['right'] = self.tree(right, minimum, cols, node['B'])
+        return node
+
+    def sway(self) -> ('DATA', 'DATA'):
+        """
+        Recursively prune the worst half the data
+        :return: the survivors and some sample of the rest
+        """
+
+        def worker(rows, worse, above=None):
+            if len(rows) <= len(rows) ** the['min']:
+                return rows, utils.many(worse, the['rest'] * len(rows))
+            else:
+                l, r, A, B, mid, c = self.half(rows=rows, above=above)
+                if self.better(B, A):
+                    l, r, A, B = r, l, B, A
+                for row in r:
+                    worse.append(row)
+                return worker(l, worse, A)
+
+        best, rest = worker(self.rows, [])
+        return self.clone(best), self.clone(rest)

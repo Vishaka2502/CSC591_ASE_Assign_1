@@ -12,13 +12,13 @@ class SYM:
         self.most = 0
         self.mode = None
 
-    def add(self, x) -> None:
+    def add(self, x: str, count: int = 1) -> None:
         """
         Update counts of things seen so far
         """
         if x != '?':
-            self.n += 1
-            self.has[x] = 1 + (self.has[x] if x in self.has else 0)
+            self.n += count
+            self.has[x] = count + (self.has[x] if x in self.has else 0)
 
             if self.has[x] > self.most:
                 self.most, self.mode = self.has[x], x
