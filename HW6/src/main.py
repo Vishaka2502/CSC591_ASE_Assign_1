@@ -54,9 +54,9 @@ def main():
 
 
 if __name__ == '__main__':
-    example('the', 'show settings', test_the)
+    example('is', 'show options', test_the)
     example('rand', 'demo random number generation', test_rand)
-    example('some', 'demo random number generation', test_some)
+    example('some', 'demo of reservoir sampling', test_some)
     example("nums", "demo of NUM", test_nums)
     example('syms', 'demo SYMS', test_sym)
     example('csv', 'reading csv files', test_csv)
@@ -64,8 +64,9 @@ if __name__ == '__main__':
     example('clone', 'replicate structure of a DATA', test_clone)
     example('cliffs', 'stats tests', test_cliffs)
     example('dist', 'distance test', test_dist)
-    example('half', 'divide data in halg', test_half)
-    example('tree', 'make snd show tree of clusters', test_tree)
+    example('half', 'divide data in half', test_half)
+    example('tree', 'make and show tree of clusters', test_tree)
     example('sway', 'optimizing', test_sway)
     example('bins', 'find deltas between best and rest', test_bins)
+    example('xpln', 'explore explanation sets', test_xpln)
     main()

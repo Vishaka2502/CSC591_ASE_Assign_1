@@ -1,5 +1,5 @@
 import math
-from typing import Union, List
+from typing import Union, List, Tuple
 
 from HW6.src import utils
 from HW6.src.cols import COLS
@@ -56,7 +56,10 @@ class DATA:
             val = getattr(col, what)()
             return col.rnd(val, n_places), col.txt
 
-        return kap(cols or self.cols.y, fun)
+        cols = cols or self.cols.y
+        tmp = kap(cols, fun)
+        tmp['N'] = len(self.rows)
+        return tmp
 
     def better(self, row1: ROW, row2: ROW) -> bool:
         """
@@ -84,8 +87,8 @@ class DATA:
         """
         n, d = 0, 0
         for col in cols or self.cols.x:
-            n = n + 1
-            d = d + col.dist(row1.cells[col.at], row2.cells[col.at]) ** the['p']
+            n += 1
+            d += col.dist(row1.cells[col.at], row2.cells[col.at]) ** the['p']
         return (d / n) ** (1 / the['p'])
 
     def around(self, row1: ROW, rows: List[ROW] = None, cols: List[Union[NUM, SYM]] = None) -> List[dict]:
@@ -114,7 +117,7 @@ class DATA:
         return t[len(t) - 1]
 
     def half(self, rows: List[ROW] = None, cols: List[Union[NUM, SYM]] = None,
-             above: ROW = None) -> (list, list, ROW, ROW, ROW, float):
+             above: ROW = None) -> (list, list, ROW, ROW, float, int):
         """
         Cluster `rows` into two sets by dividing the data via their distance to two remote points.
         To speed up finding those remote points, only look at `some` of the data.
@@ -129,25 +132,27 @@ class DATA:
 
         rows = rows if rows else self.rows
         some = utils.many(rows, the['Halves'])
-        A = above or utils.any(some)
-        B = self.around(A, some)[int(the['Far'] * len(rows))//1]['row']
-        c = dist(A, B)
+        A = (the['Reuse'] and above) or utils.any(some)
+        tmp = sorted(map(lambda r: {'row': r, 'd': dist(r, A)}, some), key=lambda x: x['d'])
+        far = tmp[int(the['Far'] * len(rows)) // 1]
+        B = far['row']
+        c = far['d']
         left = []
         right = []
 
         for n, tmp in enumerate(sorted(list(map(project, rows)), key=lambda k: k['dist'])):
             if n < len(rows) // 2:
                 left.append(tmp['row'])
-                mid = tmp['row']
             else:
                 right.append(tmp['row'])
 
-        return left, right, A, B, mid, c
+        evals = 1 if the['Reuse'] and above else 2
+        return left, right, A, B, c, evals
 
     def cluster(self, rows: List[ROW] = None, minimum: int = None, cols: List[Union[NUM, SYM]] = None,
                 above: ROW = None) -> dict:
         """
-        Get `rows`, recursively halved
+        Get `rows` (Cluster) recursively, some `rows` by  dividing them in two, many times
         :param rows:
         :param minimum:
         :param cols:
@@ -158,50 +163,40 @@ class DATA:
         cols = cols or self.cols.x
         minimum = minimum if minimum else len(rows) ** the['min']
         node = {'data': self.clone(rows)}
+
         if len(rows) >= 2 * minimum:
-            left, right, node['A'], node['B'], node['mid'], _ = self.half(rows, cols, above)
+            left, right, node['A'], node['B'], node['c'], _ = self.half(rows, cols, above)
             node['left'] = self.cluster(left, minimum, cols, node['A'])
             node['right'] = self.cluster(right, minimum, cols, node['B'])
         return node
 
-    def tree(self, rows: List[ROW] = None, minimum: int = None, cols: List[Union[NUM, SYM]] = None,
-             above: ROW = None) -> dict:
-        """
-        Cluster, recursively, some `rows` by  dividing them in two, many times
-        :param rows:
-        :param minimum:
-        :param cols:
-        :param above:
-        :return:
-        """
-        rows = rows or self.rows
-        cols = cols or self.cols.x
-        minimum = minimum if minimum else len(rows) ** the['min']
-
-        node = {'data': self.clone(rows)}
-        if len(rows) >= 2 * minimum:
-            left, right, node['A'], node['B'], node['mid'], _ = self.half(rows, cols, above)
-            node['left'] = self.tree(left, minimum, cols, node['A'])
-            node['right'] = self.tree(right, minimum, cols, node['B'])
-        return node
-
-    def sway(self) -> ('DATA', 'DATA'):
+    def sway(self) -> ('DATA', 'DATA', int):
         """
         Recursively prune the worst half the data
         :return: the survivors and some sample of the rest
         """
         data = self
 
-        def worker(rows, worse, above=None):
+        def worker(rows, worse, evals0=None, above=None):
             if len(rows) <= len(data.rows) ** the['min']:
-                return rows, utils.many(worse, the['rest'] * len(rows))
+                return rows, utils.many(worse, the['rest'] * len(rows)), evals0
             else:
-                l, r, A, B, mid, c = self.half(rows=rows, above=above)
+                l, r, A, B, c, evals = self.half(rows=rows, above=above)
                 if self.better(B, A):
                     l, r, A, B = r, l, B, A
                 for row in r:
                     worse.append(row)
-                return worker(l, worse, A)
+                return worker(l, worse, evals + evals0, A)
 
-        best, rest = worker(self.rows, [])
-        return self.clone(best), self.clone(rest)
+        best, rest, evals = worker(data.rows, [], 0)
+        return self.clone(best), self.clone(rest), evals
+
+    def betters(self, n: int) -> Union[Tuple[List, List], List]:
+        """
+        Split the row at the given integer `n`.
+        If `n` is not defined return the row list as it is
+        :param n: integer number where the list has to be split
+        :return: either a list or a tuple of two lists
+        """
+        tmp = sorted(self.rows, key=lambda row: self.better(row, self.rows[self.rows.index(row) - 1]))
+        return n and tmp[0:n], tmp[n + 1:] or tmp

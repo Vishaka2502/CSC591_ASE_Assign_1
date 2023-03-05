@@ -1,4 +1,4 @@
-from HW6.src import utils
+from HW6.src import utils, contrast_set
 from HW6.src.data import DATA
 from HW6.src.num import NUM
 from HW6.src.utils import *
@@ -152,7 +152,7 @@ def test_around():
 
 def test_half():
     data = DATA(the['file'])
-    left, right, A, B, mid, c = data.half()
+    left, right, A, B, c, _ = data.half()
     print(len(left), len(right))
     l, r = data.clone(left), data.clone(right)
     print('l', l.stats('mid', l.cols.y, 2))
@@ -161,12 +161,13 @@ def test_half():
 
 def test_tree():
     data = DATA(the['file'])
-    showTree(data.tree(), "mid", data.cols.y, 1)
+    show_tree(data.cluster(), "mid", data.cols.y, 1)
+    return True
 
 
 def test_sway():
     data = DATA(the['file'])
-    best, rest = data.sway()
+    best, rest, _ = data.sway()
     print("\nall ", data.stats('mid', data.cols.y, 2))
     print("    ", data.stats('div', data.cols.y, 2))
     print("\nbest", best.stats('mid', best.cols.y, 2))
@@ -177,7 +178,7 @@ def test_sway():
 
 def test_bins():
     data = DATA(the['file'])
-    best, rest = data.sway()
+    best, rest, _ = data.sway()
     print("all", "", "", "", {'best': len(best.rows), 'rest': len(rest.rows)})
 
     b4 = None
@@ -189,6 +190,23 @@ def test_bins():
             print(range['txt'], range['lo'], range['hi'],
                   rnd(value(range['y'].has, len(best.rows), len(rest.rows), 'best')),
                   range['y'].has)
+
+
+def test_xpln():
+    utils.seed = the['seed']
+    data = DATA(the['file'])
+    best, rest, evals = data.sway()
+    rule, most = contrast_set.xpln(data, best, rest)
+    print("\n-----------\nexplain=", contrast_set.show_rule(rule))
+    selects = contrast_set.selects(rule, data.rows)
+    data_selects = [s for s in selects if s != None]
+    data1 = data.clone(data_selects)
+    print("all               ", data.stats('mid', data.cols.y, 2), data.stats('div', data.cols.y, 2))
+    print("sway with", evals, "evals", best.stats('mid', best.cols.y, 2), best.stats('div', best.cols.y, 2))
+    print("xpln on", evals, "evals", data1.stats('mid', data1.cols.y, 2), data1.stats('div', data1.cols.y, 2))
+    top, _ = data.betters(len(best.rows))
+    top = data.clone(top)
+    print("sort with", len(data.rows), "evals", top.stats('mid', top.cols.y, 2), top.stats('div', top.cols.y, 2))
 
 
 def test_cluster():

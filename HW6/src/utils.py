@@ -29,7 +29,7 @@ def rand(low: int = 0, high: int = 1) -> float:
     return low + (high - low) * seed / 2147483647
 
 
-def rnd(n: float, n_places: int = 3) -> float:
+def rnd(n: float, n_places: int = 2) -> float:
     """
     Returns `n` rounded to `nPlaces`
     """
@@ -42,18 +42,28 @@ def cosine(a: float, b: float, c: float) -> (float, float):
     Get x, y from a line connecting `a` to `b`
     """
     x1 = (a ** 2 + c ** 2 - b ** 2) / ((2 * c) or 1)  # might be an issue if c is 0
-    x2 = max(0.0, min(1.0, x1))  # in the incremental case, x1 might be outside 0,1
-    y = abs((a ** 2 - x2 ** 2)) ** .5
-    return x2, y
+    return x1
 
 
-# List Operations
-def kap(t: list, func):
+# List or Dict Operations
+def kap(t: list, func) -> dict:
     """
     Maps `func`(k,v) over list `t` (skip nil results)
     """
     u = {}
     for k, v in enumerate(t):
+        v, k = func(k, v)
+        # here unlike `#u` in lua that gives the index of last entry, +1 is not required with len(u)
+        u[k or len(u)] = v
+    return u
+
+
+def dkap(t: dict, func) -> dict:
+    """
+    Maps `func`(k,v) over dict `t` (skip nil results)
+    """
+    u = {}
+    for k, v in t.items():
         v, k = func(k, v)
         # here unlike `#u` in lua that gives the index of last entry, +1 is not required with len(u)
         u[k or len(u)] = v
@@ -155,16 +165,16 @@ def csv(s_filename: str, func) -> None:
 
 
 # Clustering
-def showTree(node, what, cols, nPlaces, lvl=0):
+def show_tree(node, what, cols, n_places, lvl=0):
     """Cluster can be displayed by this function."""
     if node:
         print('|.. ' * lvl + '[' + str(len(node['data'].rows)) + ']' + '  ', end='')
         if not node.get('left') or lvl == 0:
-            print(node['data'].stats("mid", node['data'].cols.y, nPlaces))
+            print(node['data'].stats("mid", node['data'].cols.y, n_places))
         else:
             print('')
-        showTree(node.get('left'), what, cols, nPlaces, lvl + 1)
-        showTree(node.get('right'), what, cols, nPlaces, lvl + 1)
+        show_tree(node.get('left'), what, cols, n_places, lvl + 1)
+        show_tree(node.get('right'), what, cols, n_places, lvl + 1)
 
 
 # Discretization
