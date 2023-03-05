@@ -16,6 +16,7 @@ Welcome to CSC591_ASE_Assignments 👋
 - [HW4](https://github.com/vishakayadav/CSC591_ASE_Assignments/tree/main/HW4) - HOMEWORK 4
   - [HW4/docs/report.md](HW4/docs/report.md) Interviews Report for HW4
 - [HW5](https://github.com/vishakayadav/CSC591_ASE_Assignments/tree/main/HW5) - HOMEWORK 5
+- [HW6](https://github.com/vishakayadav/CSC591_ASE_Assignments/tree/main/HW6) - HOMEWORK 6
 
 
 ### Install
@@ -38,6 +39,7 @@ bash test.sh HW1 HW2 HW3 HW4 HW5 ...
 - [HW3 documentation](https://htmlpreview.github.io/?https://github.com/vishakayadav/CSC591_ASE_Assignments/blob/main/HW3/docs/html/index.html)
 - [HW4 documentation](https://htmlpreview.github.io/?https://github.com/vishakayadav/CSC591_ASE_Assignments/blob/main/HW4/docs/html/index.html)
 - [HW5 documentation](https://htmlpreview.github.io/?https://github.com/vishakayadav/CSC591_ASE_Assignments/blob/main/HW5/docs/html/index.html)
+- [HW6 documentation](https://htmlpreview.github.io/?https://github.com/vishakayadav/CSC591_ASE_Assignments/blob/main/HW6/docs/html/index.html)
 ---
 Generate the documentation ` pycco -i HWx/src/*.py -d HWx/docs/html/ `
 
