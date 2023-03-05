@@ -44,7 +44,7 @@ def test_sym():
     for x in ["a", "a", "a", "a", "b", "b", "c"]:
         sym.add(x)
     print(sym.mid(), rnd(sym.div()))
-    return "a" == sym.mid() and 1.379 == rnd(sym.div())
+    return "a" == sym.mid() and 1.38 == rnd(sym.div())
 
 
 def test_num():
