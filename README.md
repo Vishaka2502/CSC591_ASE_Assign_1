@@ -1,10 +1,16 @@
 <h1 align="center">
 Welcome to CSC591_ASE_Assignments 👋
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Github](https://img.shields.io/badge/language-python-red.svg)](https://docs.python.org/3/)
+[![Python 3.6](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-310/)
 [![GitHub contributors](https://img.shields.io/github/contributors/vishakayadav/CSC591_ASE_Assignments)](https://github.com/vishakayadav/CSC591_ASE_Assignments/graphs/contributors/)
-[![Tests](https://github.com/Vishaka2502/CSC591_ASE_Assignments/actions/workflows/test.yml/badge.svg)](https://github.com/vishakayadav/CSC591_ASE_Assignments/actions/workflows/test.yml)
+[![Tests](https://github.com/vishakayadav/CSC591_ASE_Assignments/actions/workflows/test.yml/badge.svg)](https://github.com/vishakayadav/CSC591_ASE_Assignments/actions/workflows/test.yml)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/vishakayadav/CSC591_ASE_Assignments)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/vishakayadav/CSC591_ASE_Assignments)](https://github.com/vishakayadav/CSC591_ASE_Assignments/releases/tag)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/vishakayadav/CSC591_ASE_Assignments)](https://github.com/vishakayadav/CSC591_ASE_Assignments/pulls)
+[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/vishakayadav/CSC591_ASE_Assignments)](https://github.com/vishakayadav/CSC591_ASE_Assignments/pulls)
+[![DOI](https://zenodo.org/badge/590268577.svg)](https://zenodo.org/badge/latestdoi/590268577)
 
 #### Simple Python project with Help text functionality and Test suite
 
