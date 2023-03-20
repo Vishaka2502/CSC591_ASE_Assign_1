@@ -1,3 +1,4 @@
+import re
 import sys
 
 from HW7.test.test_examples import *
@@ -30,7 +31,7 @@ def cli(options):
 
 
 def main():
-    saved, fails, options = {}, 0, the
+    saved, fails, success, options = {}, 0, 0, the
     for key, val in cli(settings(help_string)).items():
         options[key] = val
         saved[key] = val
@@ -44,29 +45,28 @@ def main():
                     options[k] = v
                 global seed
                 seed = options["seed"]
+                print('\n▶️ ', what, ("-") * (60))
                 if example_funcs[what]() == False:
                     fails += 1
                     print("❌ fail:", what)
                 else:
+                    success += 1
                     print("✅ pass:", what)
-
+    if success + fails > 0:
+        print("🔆", {'pass': success, 'fail': fails, 'success': 100 * success / (success + fails) // 1})
     sys.exit(fails)
 
 
 if __name__ == '__main__':
-    example('is', 'show options', test_the)
-    example('rand', 'demo random number generation', test_rand)
-    example('some', 'demo of reservoir sampling', test_some)
-    example("nums", "demo of NUM", test_nums)
-    example('syms', 'demo SYMS', test_sym)
-    example('csv', 'reading csv files', test_csv)
-    example('data', 'showing data sets', test_data)
-    example('clone', 'replicate structure of a DATA', test_clone)
-    example('cliffs', 'stats tests', test_cliffs)
-    example('dist', 'distance test', test_dist)
-    example('half', 'divide data in half', test_half)
-    example('tree', 'make and show tree of clusters', test_tree)
-    example('sway', 'optimizing', test_sway)
-    example('bins', 'find deltas between best and rest', test_bins)
-    example('xpln', 'explore explanation sets', test_xpln)
+    example('ok', 'test ok', test_ok)
+    example('sample', 'test sample', test_sample)
+    example('num', 'test num', test_num)
+    example('gauss', 'test gaussian', test_gauss)
+    example('bootmu', 'bootstrap mu', test_bootmu)
+    example('basic', 'basic test', test_basic)
+    example('pre', 'pre test', test_pre)
+    example('five', 'five', test_five)
+    example('six', 'six', test_six)
+    example('tiles', 'test tiles', test_tiles)
+    example('sk', 'test sk', test_sk)
     main()

@@ -4,20 +4,15 @@ HELP = '''
 USAGE: python main.py [OPTIONS] [-g ACTIONS]
   
 OPTIONS:
-  -b  --bins    initial number of bins       = 16
-  -c  --cliffs  cliff's delta threshold      = .147
-  -d  --d       different is over sd*d       = .35
-  -f  --file    data file                    = ../etc/data/auto93.csv
-  -F  --Far     distance to distant          = .95
-  -g  --go      start-up action              = nothing
-  -h  --help    show help                    = false
-  -H  --Halves  search space for clustering  = 512
-  -m  --min     size of smallest cluster     = .5
-  -M  --Max     numbers                      = 512
-  -p  --p       dist coefficient             = 2
-  -r  --rest    how many of rest to sample   = 4
-  -R  --Reuse   child splits reuse a parent pole = true
-  -s  --seed    random number seed           = 937162211
+  -b  --bootstrap bootstrap value          = 512
+  -c  --conf      conf value               = 0.05
+  -cl --cliff     cliff's delta threshold  = .4
+  -co --cohen     cohen value              = .35
+  -F  --Fmt       format                   = %6.2f
+  -g  --go        start-up action          = nothing
+  -h  --help      show help                = false
+  -s  --seed      random number seed       = 937162211
+  -w  --width     width                    = 40
 '''
 
 EXAMPLE_FUNCS = {}

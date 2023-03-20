@@ -1,8 +1,6 @@
 import math
 from typing import Union
 
-from HW7.src.utils import rnd, the
-
 
 # class num
 class NUM:
@@ -13,6 +11,7 @@ class NUM:
         self.n = 0
         self.mu = 0
         self.m2 = 0
+        self.sd = 0
         self.lo = math.inf
         self.hi = -math.inf
         self.w = -1 if "-" in self.txt else 1
@@ -26,12 +25,10 @@ class NUM:
         """
         if n != '?':
             self.n += count
-            if self.n <= the['Max']:
-                self.has[n] = n
-
             d = n - self.mu
             self.mu += d / self.n
             self.m2 += d * (n - self.mu)
+            self.sd = 0 if self.n < 2 else (self.m2 / (self.n - 1)) ** .5
             self.lo = min(n, self.lo)
             self.hi = max(n, self.hi)
 
@@ -52,19 +49,6 @@ class NUM:
             return 0
         else:
             return (self.m2 / (self.n - 1)) ** 0.5
-
-    @staticmethod
-    def rnd(x: Union[float, str], n: int) -> Union[float, str]:
-        """
-        Get a rounded number if a value else return the str '?'
-        :param x: Union[float, str]: number to be rounded
-        :param n: int: rounded over to `n` places
-        :return: Union[float, str]: rounded value or missing value symbol (?)
-        """
-        if x == '?':
-            return x
-        else:
-            return rnd(x, n)
 
     def norm(self, n: Union[float, str]) -> Union[float, str]:
         """
@@ -90,3 +74,7 @@ class NUM:
         if n2 == '?':
             n2 = 1 if n1 < 0.5 else 0
         return abs(n1 - n2)
+
+    def delta(self, other):
+        e = 1e-32
+        return abs(self.mu - other.mu) / ((e + self.sd ** 2 / self.n + other.sd ** 2 / other.n) ** .5)
