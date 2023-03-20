@@ -30,6 +30,7 @@
 - (^|/)[Ll]icen[cs]e(\.|$)
 - (^|/)README(\.|$)
 - (^|/)[Rr]eadme(\.|$)
+- (^|/)*.html
 
 # Samples folders
 - ^[Ss]amples?/
